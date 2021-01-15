@@ -1,0 +1,45 @@
+/*
+*  通用样式
+*/
+
+// 单行文本省略
+.text-clap {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// 清除浮动
+.clearfloat {
+  zoom: 1;
+  &:after {
+    content: "";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    height: 0;
+  }
+}
+
+// 阴影
+.s-basic {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 
+  0 0 6px rgba(0, 0, 0, .04);
+}
+.s-light {
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+// 边框圆角
+.r-small {
+  border-radius: 2px;
+}
+.r-medium {
+  border-radius: 4px;
+}
+.r-large {
+  border-radius: 36px;
+}
+.r-round {
+  border-radius: 50%;
+}

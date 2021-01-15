@@ -1,0 +1,7 @@
+/build/
+/config/
+/dist/
+/public/
+/src/assets/
+/*.js
+/server/

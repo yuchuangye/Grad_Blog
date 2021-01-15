@@ -1,0 +1,28 @@
+{
+  "name": "grad_blog-server",
+  "version": "1.0.0",
+  "description": "grad_blog 项目的 API 接口",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon ./app.js",
+    "pm2": "pm2 start ./app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "koa",
+    "mongodb"
+  ],
+  "author": "yuchaungye",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "@koa/router": "^10.0.0",
+    "bcryptjs": "^2.4.3",
+    "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-json-error": "^3.1.2",
+    "koa-parameter": "^3.0.1",
+    "koa-static": "^5.0.0",
+    "mongoose": "^5.11.12"
+  }
+}

@@ -1,0 +1,35 @@
+/* 
+* 通用字体和颜色变量 
+*/
+
+// 字体
+$font-xs:      1.2rem;
+$font-sm:      1.3rem;
+$font-md:      1.4rem;
+$font-lg:      1.6rem;
+$font-xl:      1.8rem;
+$font-vl:      2.0rem;
+
+$font-t1:      3.0rem;
+$font-t2:      3.2rem;
+$font-logo:    3.6rem;
+$font-vt:      4.0rem;
+
+
+// 颜色
+$page-main:      #E6A23C; // 页面主色调
+$page-second:    #67C23A; // 页面副色调
+$page-thrid:     #F56C6C; // 第三色调
+
+$ft-main:        #333;   // body初始字体
+$ft-base:        #757575;   // 通用字体
+$ft-title:       #212121;   // 标题
+$ft-text:        #888;   // 文本颜色
+$ft-link:        #999;   // 链接文本颜色
+$ft-user:        #666;  // 用户信息
+$ft-tag:         #9e9e9e;  // 便签/提示文本
+
+$bg-header:      #fafafa;   // 头部背景
+$bg-main:        #fff;      // 通用背景       
+ 
+$border:         #ccc;    // 边框
