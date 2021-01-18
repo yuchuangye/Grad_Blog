@@ -1,18 +1,18 @@
-const res = require('../utils/response.js')
-const UserSchema = require('../models/user.js')
+const res = require('../../utils/response.js')
+const ArticleSchema = require('../../models/article.js')
 
 // 路由处理中间件
 module.exports = {
-	test(ctx, next) {
+	test2(ctx, next) {
 		let data = {
-			token: '0x226as6d1sa21d',
+			token: 'article eeeeeeee',
 			data: [],
-			pre_page: 10,
-			next_page: 12
+			pre_page: 5,
+			next_page: 7
 		}
 		ctx.body = res(0, 'success', data)
 	},
-	testAdd(ctx, next) {
+	testAdd2(ctx, next) {
 		// 参数校验
 		ctx.verifyParams({
 			name: { type: 'string', require: true },
