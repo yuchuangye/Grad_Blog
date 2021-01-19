@@ -14,7 +14,7 @@ service.interceptors.request.use(
   config => {
     const token = store.state.userData.access_token || ''
     // 携带token, 设置请求头
-    config.headers['Authorization'] = 'Barery ' + token
+    config.headers['Authorization'] = 'Bearer ' + token
     return config
   },
 
@@ -31,9 +31,7 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     // 账号/密码错误, 文章/用户已存在...
-    if (res.code === 1) {
-      Vue.$message({ type: 'warning', msg: res.msg })
-    }
+    if (res.code === 1) { Vue.prototype.$message({ type: 'warning', message: res.msg }) }
     return res
   },
 
@@ -41,30 +39,29 @@ service.interceptors.response.use(
     // 对响应错误做些什么
     const { status, data } = error.response
     switch (status) {
-      // 401 未登录 -跳转登录页面，并携带当前页面的路径
+      // 401 未登录(无token/token无效/过期) -跳转登录页面，并携带当前页面的路径
       case 401:
         store.dispatch('reLogin')
         break
-      // 403 登录过期, 提示用户并1s后跳转至登录页
+      // 403 验证是通过的, 但没权限访问该接口
       case 403:
-        Vue.$message({ type: 'error', msg: '登录过期，请重新登录!' })
-        setTimeout(() => { store.dispatch('reLogin') }, 1000)
+        Vue.prototype.$message({ type: 'error', message: '你没有权限执行此操作！' })
         break
       // 404 请求资源不存在
       case 404:
-        Vue.$message({ type: 'error', msg: '404 Not Found' })
+        Vue.prototype.$message({ type: 'error', message: '404 Not Found' })
         break
-      // 422 参数类型不正确, 校验失败
-      case 422:
-        Vue.$message({ type: 'error', msg: '参数校验失败~' })
+      // 409 信息冲突, 比如注册时用户已存在
+      case 409:
+        Vue.prototype.$message({ type: 'error', message: data.msg })
         break
       // 500 服务器错误
       case 500:
-        Vue.$message({ type: 'error', msg: '服务器繁忙~' })
+        Vue.prototype.$message({ type: 'error', message: '服务器繁忙~' })
         break
-      // 其它错误码
+      // 其它错误码(405, 422......)
       default:
-        Vue.$message({ type: 'error', msg: data.msg || data.message || data })
+        console.log(data.msg || data.message || data || 'Unknown Error')
     }
     return Promise.reject(data)
   }

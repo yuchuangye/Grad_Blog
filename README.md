@@ -6,7 +6,7 @@
 
 #### 2、技术栈
 
-​	前端：vue全家桶 + scss +elementui + bootstrapVue + dayjs
+​	前端：vue全家桶 + scss +element-ui + bootstrapVue + dayjs
 
 ​                    axios + echarts + vue-awesome-swiper
 

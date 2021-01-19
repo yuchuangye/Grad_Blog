@@ -10,7 +10,7 @@ module.exports = {
 			pre_page: 5,
 			next_page: 7
 		}
-		ctx.body = res(0, 'success', data)
+		ctx.body = res(1, '用户名或密码错误')
 	},
 	testAdd2(ctx, next) {
 		// 参数校验

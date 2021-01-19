@@ -1,6 +1,8 @@
 {
   "name": "grad_blog-admin",
   "version": "1.0.0",
+  "description": "这是 GRADBLOG 的 后台管理系统 项目",
+  "author": "yuchuangye",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

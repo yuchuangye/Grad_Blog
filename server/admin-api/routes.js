@@ -2,7 +2,7 @@ const Router = require('@koa/router')
 const handle = require('./controllers/index.js')
 
 // 实例化路由对象，并设置路由前缀
-const router = new Router({ prefix: '/admin' })
+const router = new Router({ prefix: '/api/admin' })
 
 // 用户
 router.get('/test', handle.test)

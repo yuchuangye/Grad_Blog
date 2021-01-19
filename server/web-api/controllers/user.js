@@ -10,6 +10,7 @@ module.exports = {
 			pre_page: 10,
 			next_page: 12
 		}
+		ctx.throw(401, '当前未登录!')
 		ctx.body = res(0, 'success', data)
 	},
 	testAdd(ctx, next) {

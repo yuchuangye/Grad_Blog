@@ -83,11 +83,13 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(() => {
-  console.log('afterEach....')
+  console.log('路由发生了跳转...')
 })
 
 // 禁止相同路由跳转时打印错误信息
 const originalPush = VueRouter.prototype.push
-VueRouter.prototype.push = (location) => originalPush.call(this, location).catch(err => err)
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 export default router
