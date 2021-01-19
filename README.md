@@ -8,7 +8,7 @@
 
 ​	前端：vue全家桶 + scss +element-ui + bootstrapVue + dayjs
 
-​                    axios + echarts + vue-awesome-swiper
+​                axios + echarts + vue-awesome-swiper
 
 ​	后端：nodejs + mongodb + mongoose + koa2
 
