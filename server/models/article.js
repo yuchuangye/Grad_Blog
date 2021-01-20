@@ -1,6 +1,6 @@
-// goods 集合(表) 定义文件
 const mongoose = require('./db.js')
 
+// 文章Schema模型定义
 const ArticleSchema = mongoose.Schema({
   title: { type: String },
   content: { type: String }

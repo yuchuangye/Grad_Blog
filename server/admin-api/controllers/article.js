@@ -1,8 +1,9 @@
 const res = require('../../utils/response.js')
 const ArticleSchema = require('../../models/article.js')
 
-// 路由处理中间件
+// 路由处理函数
 module.exports = {
+
 	test2(ctx, next) {
 		let data = {
 			token: 'article eeeeeeee',
@@ -12,6 +13,7 @@ module.exports = {
 		}
 		ctx.body = res(0, 'success', data)
 	},
+
 	testAdd2(ctx, next) {
 		// 参数校验
 		ctx.verifyParams({
@@ -20,4 +22,5 @@ module.exports = {
 		})
 		ctx.body = res(0, 'success', ctx.request.body)
 	}
+	
 }

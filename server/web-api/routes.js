@@ -4,6 +4,9 @@ const handle = require('./controllers/index.js')
 // 实例化路由对象，并设置路由前缀
 const router = new Router({ prefix: '/api/web' })
 
+// 文件上传
+router.post('/upload/:mime/:type?', handle.upload)
+
 // 用户
 router.get('/test', handle.test)
 router.post('/test/add', handle.testAdd)

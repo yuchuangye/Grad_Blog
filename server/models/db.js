@@ -1,4 +1,6 @@
-// db.js用于连接数据库
+/** 
+ *  Mongodb数据库连接文件
+*/
 const mongoose = require('mongoose')
 
 /* `findOneAndUpdate()` and `findOneAndDelete()` 

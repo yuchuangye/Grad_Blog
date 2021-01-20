@@ -3,6 +3,7 @@ const ArticleSchema = require('../../models/article.js')
 
 // 路由处理中间件
 module.exports = {
+
 	test2(ctx, next) {
 		let data = {
 			token: 'article eeeeeeee',
@@ -12,6 +13,7 @@ module.exports = {
 		}
 		ctx.body = res(1, '用户名或密码错误')
 	},
+
 	testAdd2(ctx, next) {
 		// 参数校验
 		ctx.verifyParams({
@@ -20,4 +22,5 @@ module.exports = {
 		})
 		ctx.body = res(0, 'success', ctx.request.body)
 	}
+	
 }

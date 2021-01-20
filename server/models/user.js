@@ -1,6 +1,6 @@
-// goods 集合(表) 定义文件
 const mongoose = require('./db.js')
 
+// 用户Schema模型定义
 const UserSchema = mongoose.Schema({
   username: { type: String },
   password: { 

@@ -12,6 +12,11 @@ module.exports = {
 		connectStr: `mongodb://${this.dbInfo.username}:${this.dbInfo.passwrod}
 		@localhost:27017/${this.dbInfo.name}`
 	},
+	// ip地址
+	ip:　'localhost',
 	// 项目运行端口号
-	port: 3009
+	port: 3009,
+	// 完整域名
+	domain: `http://${this.ip}:${this.port}`
+	
 }
