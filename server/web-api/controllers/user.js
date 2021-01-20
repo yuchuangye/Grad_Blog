@@ -4,24 +4,12 @@ const UserSchema = require('../../models/user.js')
 // 路由处理中间件
 module.exports = {
 
-	test(ctx, next) {
-		let data = {
-			token: 'admin hahahahaha',
-			data: [],
-			pre_page: 10,
-			next_page: 12
-		}
-		ctx.throw(401, '当前未登录!')
-		ctx.body = res(0, 'success', data)
+	login(ctx, next) {
+	
 	},
 
-	testAdd(ctx, next) {
-		// 参数校验
-		ctx.verifyParams({
-			name: { type: 'string', require: true },
-			age: { type: 'number', require: false }
-		})
-		ctx.body = res(0, 'success', ctx.request.body)
+	register(ctx, next) {
+
 	}
 	
 }

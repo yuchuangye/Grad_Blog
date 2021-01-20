@@ -1,12 +1,18 @@
-// 媒体查询文件
+// 媒体查询/栅格系统/响应式设计 文件
 
-/*  
-	x <= 768   (xs)
+/*
+ 
+	x <= 768       (xs)
 	768< x <=992   (sm)
-	992< x <=1200   (md)
-	x > 1200     (lg)
+	992< x <=1200  (md)
+	x > 1200       (lg)
 
-	一行划分为 12份
+	一行(row)划分为 12列(col)
+
+	.col-xx-pull-2     是指将当前列向左偏移2列的距离 (原来所占位置不变，相对定位偏移)
+	.col-xx-push-3     是指将当前列向右偏移3列的距离 (原来所占位置不变，相对定位偏移)
+	.col-xx-offset-5   是给列添加5列宽度的左外边距
+
 */
 
 .container
@@ -28,7 +34,7 @@
 	clear: both;
 }
 
-@media (min-width: 768px)
+@media screen and (min-width: 768px)
 {
 	.container
 	{
@@ -36,7 +42,7 @@
 	}
 }
 
-@media (min-width: 992px)
+@media screen and (min-width: 992px)
 {
 	.container
 	{
@@ -44,7 +50,7 @@
 	}
 }
 
-@media (min-width: 1200px)
+@media screen and (min-width: 1200px)
 {
 	.container
 	{
@@ -362,7 +368,7 @@
 	margin-left: 100%;
 }
 
-@media (min-width: 768px)
+@media screen and (min-width: 768px)
 {
 	.col-sm-1,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,
 	.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-10,.col-sm-11,.col-sm-12
@@ -626,7 +632,7 @@
 	}
 }
 
-@media (min-width: 992px)
+@media screen and (min-width: 992px)
 {
 	.col-md-1,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,
 	.col-md-7,.col-md-8,.col-md-9,.col-md-10,.col-md-11,.col-md-12
@@ -890,7 +896,7 @@
 	}
 }
 
-@media (min-width: 1200px)
+@media screen and (min-width: 1200px)
 {
 	.col-lg-1,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,
 	.col-lg-7,.col-lg-8,.col-lg-9,.col-lg-10,.col-lg-11,.col-lg-12
@@ -1155,13 +1161,100 @@
 }
 
 // 隐藏类
-.hidden
+.visible-xs,.visible-sm,.visible-md,.visible-lg
 {
 	display: none !important;
-	visibility: hidden !important;
 }
 
-@media (max-width: 767px)
+.visible-xs-block,.visible-xs-inline,.visible-xs-inline-block,
+.visible-sm-block,.visible-sm-inline,.visible-sm-inline-block,
+.visible-md-block,.visible-md-inline,.visible-md-inline-block,
+.visible-lg-block,.visible-lg-inline,.visible-lg-inline-block
+{
+	display: none !important;
+}
+
+@media screen and (max-width: 767px)
+{
+	.visible-xs
+	{
+		display: block !important;
+  }
+  .visible-xs-block
+	{
+		display: block !important;
+  }
+  .visible-xs-inline
+	{
+		display: inline !important;
+  }
+  .visible-xs-inline-block
+	{
+		display: inline-block !important;
+	}
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px)
+{
+	.visible-sm
+	{
+		display: block !important;
+  }
+  .visible-sm-block
+	{
+		display: block !important;
+  }
+  .visible-sm-inline
+	{
+		display: inline !important;
+  }
+  .visible-sm-inline-block
+	{
+		display: inline-block !important;
+	}
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px)
+{
+	.visible-md
+	{
+		display: block !important;
+  }
+  .visible-md-block
+	{
+		display: block !important;
+  }
+  .visible-md-inline
+	{
+		display: inline !important;
+  }
+  .visible-md-inline-block
+	{
+		display: inline-block !important;
+	}
+}
+
+@media screen and (min-width: 1200px)
+{
+	.visible-lg
+	{
+		display: block !important;
+  }
+  .visible-lg-block
+	{
+		display: block !important;
+  }
+  .visible-lg-inline
+	{
+		display: inline !important;
+  }
+  .visible-lg-inline-block
+	{
+		display: inline-block !important;
+	}
+}
+
+@media screen and (max-width: 767px)
 {
 	.hidden-xs
 	{
@@ -1169,7 +1262,13 @@
 	}
 }
 
-@media (min-width: 768px) and (max-width: 991px)
+.hidden
+{
+	display: none !important;
+	visibility: hidden !important;
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px)
 {
 	.hidden-sm
 	{
@@ -1177,7 +1276,7 @@
 	}
 }
 
-@media (min-width: 992px) and (max-width: 1199px)
+@media screen and (min-width: 992px) and (max-width: 1199px)
 {
 	.hidden-md
 	{
@@ -1185,11 +1284,10 @@
 	}
 }
 
-@media (min-width: 1200px)
+@media screen and (min-width: 1200px)
 {
 	.hidden-lg
 	{
 		display: none !important;
 	}
 }
-

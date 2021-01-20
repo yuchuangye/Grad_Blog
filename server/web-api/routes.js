@@ -8,8 +8,8 @@ const router = new Router({ prefix: '/api/web' })
 router.post('/upload/:mime/:type?', handle.upload)
 
 // 用户
-router.get('/test', handle.test)
-router.post('/test/add', handle.testAdd)
+router.post('/login', handle.login)
+router.post('/register', handle.register)
 // 文章
 router.get('/test2', handle.test2)
 router.post('/test/add2', handle.testAdd2)
