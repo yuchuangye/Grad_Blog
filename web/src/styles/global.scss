@@ -2,6 +2,24 @@
 *  全局通用样式
 */
 
+// chrome 滚动条样式设置
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: rgba(0,0,0,0);
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #c7c7c7;
+}
+::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background-color: rgba(0,0,0,0);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color:rgb(173, 171, 171);
+}
+
 .text-center {
   text-align: center;
 }
