@@ -3,6 +3,7 @@ import router from '@/router'
 export default {
   // 重新登录
   reLogin({ commit }) {
+    // 退出登录
     commit('logout')
     router.push({
       path: '/login',

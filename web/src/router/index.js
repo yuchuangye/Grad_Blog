@@ -45,7 +45,15 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  // 路由改变时滚动到顶部，而返回上一级时滚动到之前位置
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 })
 
 router.beforeEach((to, from, next) => {

@@ -1,12 +1,12 @@
 import request from '@/utils/request'
 
 export default {
-  // 修改分类
-  updateUser(data = {}) {
+  // 删除用户
+  deleteUser({ id, params }) {
     return request({
-      url: 'user/update',
-      method: 'put',
-      data
+      url: `/user/${id}`,
+      method: 'delete',
+      params
     })
   }
 }

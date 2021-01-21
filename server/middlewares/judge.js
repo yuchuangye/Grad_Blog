@@ -4,7 +4,7 @@
 
 const judge = (ctx, next) => {
   const { user } = ctx.state
-  if (user.username !== 'kayano') { return ctx.throw(403, '你没有权限执行此操作') }
+  if (user.username !== 'kayano') { ctx.throw(403, '你没有权限执行此操作') }
   next()
 }
 
