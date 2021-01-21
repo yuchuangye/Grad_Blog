@@ -48,6 +48,7 @@ const router = new VueRouter({
   routes,
   // 路由改变时滚动到顶部，而返回上一级时滚动到之前位置
   scrollBehavior(to, from, savedPosition) {
+    window.pageYOffset = 0
     if (savedPosition) {
       return savedPosition
     } else {
