@@ -1,5 +1,5 @@
 const res = require('../../utils/response.js')
-const ArticleSchema = require('../../models/article.js')
+const ArticleModel = require('../../models/article.js')
 
 // 路由处理函数
 module.exports = {

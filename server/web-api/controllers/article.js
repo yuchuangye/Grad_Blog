@@ -1,26 +1,15 @@
 const res = require('../../utils/response.js')
-const ArticleSchema = require('../../models/article.js')
+const ArticleModel = require('../../models/article.js')
 
 // 路由处理中间件
 module.exports = {
 
-	test2(ctx, next) {
-		let data = {
-			token: 'article eeeeeeee',
-			data: [],
-			pre_page: 5,
-			next_page: 7
-		}
-		ctx.body = res(1, '用户名或密码错误')
+	deleteArticle(ctx, next) {
+		ctx.body = res(0, '删除文章成功')
 	},
 
-	testAdd2(ctx, next) {
-		// 参数校验
-		ctx.verifyParams({
-			name: { type: 'string', require: true },
-			age: { type: 'number', require: false }
-		})
-		ctx.body = res(0, 'success', ctx.request.body)
+	updateArticle(ctx, next) {
+		ctx.body = res(0, '修改文章成功')
 	}
-	
+
 }

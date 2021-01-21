@@ -1,5 +1,5 @@
 const res = require('../../utils/response.js')
-const UserSchema = require('../../models/user.js')
+const UserModel = require('../../models/user.js')
 
 // 路由处理函数
 module.exports = {

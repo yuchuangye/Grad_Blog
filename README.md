@@ -128,6 +128,14 @@ Feng：<https://github.com/Fengfengfeng-up/vue-comment-component>
 
 评论设计：<https://blog.csdn.net/to_study/article/details/107578783> 
 
+慕课网：Node开发Web Server博客 Node.js+Express+Koa2+MySQL
+
+​        Node.js仿知乎服务端-深入理解RESTful API
+
+​        Node.js-Koa2框架生态实战－从零模拟新浪微博
+
+​        毕设一课通 从开题到答辩高效完成（含全栈项目）
+
 ####  
 
 #### 许可证

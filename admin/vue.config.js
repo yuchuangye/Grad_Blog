@@ -5,8 +5,8 @@ module.exports = {
 		port: 3002,
 		hot: true
 	},
-	// 只在开发模式下启用eslint, 默认值是 true
-	lintOnSave: process.env.NODE_ENV === 'development',
+	// 关闭 eslint校验
+	lintOnSave: false,
 	// 如果不需要生产环境的 sourcemap, 设置为 false, 那么打包后就没有.map文件
 	productionSourceMap: false,
 

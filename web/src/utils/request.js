@@ -53,7 +53,7 @@ service.interceptors.response.use(
         break
       // 409 信息冲突, 比如注册时用户已存在
       case 409:
-        Vue.prototype.$message({ type: 'error', message: data.msg })
+        Vue.prototype.$message({ type: 'error', message: data.msg || data.message || '信息冲突' })
         break
       // 500 服务器错误
       case 500:
