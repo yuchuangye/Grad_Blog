@@ -6,9 +6,7 @@
 
 #### 2、技术栈
 
-​	前端：vue全家桶 + scss +element-ui + bootstrapVue + dayjs
-
-​                axios + echarts + vue-awesome-swiper
+​	前端：vue全家桶 + scss +element-ui + dayjs + axios + echarts + vue-awesome-swiper
 
 ​	后端：nodejs + mongodb + mongoose + koa2
 
@@ -110,7 +108,7 @@
 
 #### 7、页面设计
 
-​	响应式、三栏布局、bootstrap-Element风格
+​	响应式、自适应、三栏布局、ElementUI风格
 
  
 
@@ -136,7 +134,7 @@ Feng：<https://github.com/Fengfengfeng-up/vue-comment-component>
 
 ​        毕设一课通 从开题到答辩高效完成（含全栈项目）
 
-####  
+ 
 
 #### 许可证
 MIT license
