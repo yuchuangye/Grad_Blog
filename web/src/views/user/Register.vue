@@ -36,44 +36,13 @@
 
 <script>
 import Vcode from 'vue-puzzle-vcode'
+import check from '@/utils/check.js'
 export default {
   name: 'Register',
   components: {
     Vcode
   },
   data() {
-    // 用户名验证规则
-    const checkUserName = (rule, value, callback) => {
-      if (!value) {
-        return callback('请输入用户名')
-      } else if (new RegExp('[^a-zA-Z0-9\u4e00-\u9fa5]', 'g').test(value)) {
-        return callback('名字只能是数字、字母和中文的组合')
-      } else if (value.length > 10) {
-        return callback('长度不能大于10个字符')
-      } else {
-        return callback()
-      }
-    }
-    // 密码验证规则
-    const checkPassword = (rule, value, callback) => {
-      if (!value) {
-        return callback('请输入密码')
-      } else if (value.length < 6) {
-        return callback('密码长度不能小于6个字符')
-      } else {
-        return callback()
-      }
-    }
-    // 密保验证规则
-    const checkSecure = (rule, value, callback) => {
-      if (!value) {
-        return callback('必须提供密保')
-      } else if (new RegExp('[^a-zA-Z0-9\u4e00-\u9fa5]', 'g').test(value)) {
-        return callback('密保只能是数字、字母和中文的组合')
-      } else {
-        return callback()
-      }
-    }
     return {
       user: { // 用户注册信息
         username: '',
@@ -81,9 +50,9 @@ export default {
         security: ''
       },
       rules: { // 表单验证规则
-        username: [{ validator: checkUserName, trigger: 'blur' }],
-        password: [{ validator: checkPassword, trigger: 'blur' }],
-        security: [{ validator: checkSecure, trigger: 'blur' }]
+        username: [{ validator: check.checkUserName, trigger: 'blur' }],
+        password: [{ validator: check.checkPassword, trigger: 'blur' }],
+        security: [{ validator: check.checkSecure, trigger: 'blur' }]
       },
       codeShow: false // 控制滑块验证码显示
     }
@@ -99,7 +68,7 @@ export default {
     register() {
       console.log('register success~')
     },
-    // 验证码验证成功
+    // 滑块验证码验证成功
     codeSuccess() {
       this.codeShow = false
       this.register()
@@ -109,7 +78,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../styles/_variable.scss";
+@import "../../styles/_variable.scss";
 .register {
   height: 100vh;
   background-color: #e9ecef;

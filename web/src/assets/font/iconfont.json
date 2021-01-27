@@ -1,0 +1,30 @@
+{
+  "id": "1946467",
+  "name": "grad_blog",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "2021年毕业设计",
+  "glyphs": [
+    {
+      "icon_id": "7714975",
+      "name": "github",
+      "font_class": "github",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "14055529",
+      "name": "QQ",
+      "font_class": "QQ1",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "15933094",
+      "name": "微信",
+      "font_class": "weixin",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+/*
+* element-ui 样式修改文件
+*/
+
+@media screen and (max-width: 414px) {
+  // 通知提示框
+  .el-notification {
+    width: 270px;
+    padding: 12px 26px 12px 13px;
+    transform: translateX(-50%);
+    right: auto;
+    left: 50%;
+  }
+  // 步骤条文字
+  .el-step__title {
+    font-size: 14px;
+  }
+}

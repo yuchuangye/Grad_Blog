@@ -17,15 +17,22 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/Login'),
+    component: () => import('@/views/user/Login'),
     meta: { title: '登录' }
   },
 
   {
     path: '/register',
     name: 'register',
-    component: () => import('@/views/Register'),
+    component: () => import('@/views/user/Register'),
     meta: { title: '注册' }
+  },
+
+  {
+    path: '/forgot',
+    name: 'forgot',
+    component: () => import('@/views/user/forgot-password'),
+    meta: { title: '忘记密码' }
   },
 
   {
