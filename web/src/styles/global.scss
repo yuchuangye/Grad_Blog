@@ -2,7 +2,7 @@
 *  全局通用样式
 */
 
-// chrome 滚动条样式设置
+// 滚动条样式
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -20,6 +20,8 @@
   background-color:rgb(173, 171, 171);
 }
 
+
+// 文本
 .text-center {
   text-align: center;
 }
@@ -29,12 +31,19 @@
 .text-right {
   text-align: right;
 }
-
-// 单行文本省略
 .text-clap {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.fw-700 {
+  font-weight: 700;
+}
+.fw-400 {
+  font-weight: 400;
+}
+.fw-200 {
+  font-weight: 200;
 }
 
 // 清除浮动
@@ -48,3 +57,80 @@
   visibility: hidden;
   height: 0;
 }
+
+// 字体和背景颜色
+.text-main {
+  color: #E6A23C;
+}
+.text-second {
+  color: #67C23A;
+}
+.text-thrid {
+  color:#F56C6C;
+}
+.text-common {
+  color: #333;
+}
+
+.bg-main {
+  background-color: #E6A23C;
+}
+.bg-second {
+  background-color: #67C23A;
+}
+.bg-thrid {
+  background-color: #F56C6C;
+}
+.bg-white {
+  background-color: #fff;
+}
+
+// 布局相关
+.w-100 {
+  width: 100%;
+}
+.w-80 {
+  width: 80%;
+}
+.w-50 {
+  width: 50%;
+}
+.w-20 {
+  width: 20%;
+}
+.m-auto {
+  margin: 0 auto;
+}
+.m-lr-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.none {
+  display: none; 
+}
+.block {
+  display: block;
+}
+.inline-block {
+  display: inline-block;
+}
+.inline {
+  display: inline;
+}
+
+// flex
+.flex {
+  display: flex;
+}
+.fd-col {
+  flex-direction: column;
+}
+.fd-row {
+  flex-direction: row;
+}
+
+.of-hidden {
+  overflow: hidden;
+}
+

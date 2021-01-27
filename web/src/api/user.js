@@ -1,12 +1,12 @@
 import request from '@/utils/request'
 
 export default {
-  // 删除用户
-  deleteUser({ id, params }) {
+  // 注册用户
+  register({ data }) {
     return request({
-      url: `/user/${id}`,
-      method: 'delete',
-      params
+      url: `/register`,
+      method: 'post',
+      data
     })
   }
 }

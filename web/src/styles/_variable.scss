@@ -2,6 +2,11 @@
 * 通用字体和颜色变量 
 */
 
+// 改变 element-ui 主色调所需代码
+$--color-primary: #E6A23C;
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+@import "~element-ui/packages/theme-chalk/src/index";
+
 // 字体
 $font-xs:      1.2rem;
 $font-sm:      1.3rem;
