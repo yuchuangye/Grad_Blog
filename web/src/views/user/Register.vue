@@ -20,7 +20,7 @@
                 <el-button type="primary w-100" @click="submit">注册</el-button>
               </el-form-item>
             </el-form>
-            <div class="tips text-center">继续即代表同意
+            <div class="text-center">继续即代表同意
               <span class="text-main">《服务条款》</span>和
               <span class="text-main">《隐私政策》</span>
             </div>

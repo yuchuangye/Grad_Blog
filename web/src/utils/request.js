@@ -30,8 +30,14 @@ service.interceptors.response.use(
 
   response => {
     const res = response.data
-    // 账号/密码错误, 文章/用户已存在...
-    if (res.code === 1) { Vue.prototype.$message({ type: 'warning', message: res.msg }) }
+    // 账号/密码错误, 用户/文章/问题 已存在...
+    if (res.code === 1) {
+      this.$notify.error({
+        title: '错误',
+        message: res.msg,
+        duration: 1500
+      })
+    }
     return res
   },
 
@@ -50,10 +56,6 @@ service.interceptors.response.use(
       // 404 请求资源不存在
       case 404:
         Vue.prototype.$message({ type: 'error', message: '404 Not Found' })
-        break
-      // 409 信息冲突, 比如注册时用户已存在
-      case 409:
-        Vue.prototype.$message({ type: 'error', message: data.msg || data.message || '信息冲突' })
         break
       // 500 服务器错误
       case 500:

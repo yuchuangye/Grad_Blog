@@ -1,4 +1,5 @@
 const mongoose = require('./db.js')
+const { d_avatar } = require('../config.js')
 
 // 用户Schema模型定义
 const UserSchema = mongoose.Schema({
@@ -11,7 +12,23 @@ const UserSchema = mongoose.Schema({
     set (val) { return require('bcryptjs').hashSync(val, 10) }
   },
   // 密保
-  security: { type: String, trim: true, select: false }
+  security: { type: String, select: false },
+  // 头像
+  avatar: { type: String, default: d_avatar },
+  // 注册时间
+  createTime: { type: Date, default: Date.now },
+  // 职位
+  job: { type: String, default: '暂无~' },
+  // 公司
+  company: { type: String, default: '暂无~' },
+  // 个人介绍
+  introduce: { type: String, default: '暂无~' },
+  // 关注的人
+  following: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+    select: false
+  }
+
 })
 
 

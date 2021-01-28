@@ -1,6 +1,7 @@
 /*
 *  配置文件 
 */
+
 module.exports = {
 	// token密钥
 	secret: 'grad-blog-20210917-api',
@@ -9,13 +10,15 @@ module.exports = {
 		name: 'grad_blog',
 		username: 'yuchaungye',
 		passwrod: 'gradblog2019',
-		connectStr: `mongodb://${this.username}:${this.passwrod}@localhost:27017/${this.name}`
+		get connectStr() { return `mongodb://localhost:27017/${this.name}` }
 	},
 	// ip地址
 	ip:　'localhost',
 	// 项目运行端口号
 	port: 3009,
 	// 完整域名
-	domain: `http://${this.ip}:${this.port}`
-	
+	get domain() { return `http://${this.ip}:${this.port}` },
+	get s_domain() { return `https://${this.ip}:${this.port}` },
+	// 默认头像
+	get d_avatar() { return `${this.domain}/d_avatar.png` }
 }

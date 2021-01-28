@@ -95,7 +95,7 @@ export default {
       // 两次输入的新密码不一致
       if (newpassword !== order_newpassword) {
         this.$notify.error({
-          title: '提示',
+          title: '错误',
           message: '两次输入的新密码不一致',
           duration: 1500
         })

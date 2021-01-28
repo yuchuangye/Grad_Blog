@@ -11,11 +11,14 @@ const router = new Router({ prefix: '/api/web' })
 const auth = koaJwt({ secret })
 
 // 文件上传
-router.post('/upload/:mime/:type?', handle.upload)
+router.post('/upload/:mime/:type?', auth, handle.upload)
 
 // 用户
 router.post('/login', handle.login)
 router.post('/register', handle.register)
+router.post('/user/auth', handle.authUser)
+router.put('/user/password', handle.updateUserPassword)
+router.put('/user/baseinfo', auth, handle.updateUserInfo)
 
 // 文章
 router.put('/article/:id', auth, judge, handle.updateArticle)
