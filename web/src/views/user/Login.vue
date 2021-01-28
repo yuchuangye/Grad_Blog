@@ -14,7 +14,7 @@
                 <el-input v-model="user.password" placeholder="你的密码" show-password />
               </el-form-item>
               <el-form-item class="w-80 m-lr-auto">
-                <el-button type="primary w-100" @click="submit">注册</el-button>
+                <el-button type="primary w-100" @click="submit">登录</el-button>
               </el-form-item>
             </el-form>
             <div class="text-center">继续即代表同意

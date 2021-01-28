@@ -106,6 +106,70 @@ module.exports = {
 		const user = await UserModel.findOneAndUpdate({ username, security }, { password })
 		if (!user) { return ctx.body = res(1, '用户名或密保不正确') }
 		ctx.body = res(0, '修改密码成功')
+	},
+
+	// 获取关注列表
+	async followingList(ctx, next) {
+		const { id } = ctx.request.params
+		// 查找要获取粉丝列表的用户，并关联查询关注者的详细信息
+		const user = await UserModel.findById(id).select('+following').populate('folloing')
+		// 用户不存在
+		if (!user) { return ctx.body = res(1, '参数不合法') }
+
+		ctx.body = res(0, '获取关注列表成功', user.following)
+	},
+
+	// 获取粉丝列表
+	async followersList(ctx, next) {
+		const { id } = ctx.request.params
+		const followers = await UserModel.find({ following: id })
+		ctx.body = res(0, '获取粉丝列表成功', followers)
+	},
+
+	// 关注某人
+	async followUser(ctx, next) {
+		// 被关注者ID
+		const { id } = ctx.request.params
+		// 关注者ID
+		const { _id } = ctx.state.user
+		// 查找关注者的信息
+		const me = await UserModel.findById(_id).select('+following')
+		// 查找被关注者是否存在
+		const you = await UserModel.findById(id)
+		if (!you || id === _id) { ctx.throw(422, '参数不合法') }
+		/* 
+			判断是否已经关注过
+			需要将 following 字段中存的 id 先转换为字符串, 因为
+			存进去的是 mongoose 自定义的 ObjectId 类型, 遍历调用 toString() 处理即可
+			或者 me.following.map(id => mongoose.Types.ObjectId(id)) 
+		*/
+		if (me.following.map(id => id.toString()).includes(id)) { 
+			return ctx.body = res(1, '已经关注过该用户') 
+		}
+		// 往 following 字段添加被关注者的ID
+		me.following.push(id)
+		await me.save()
+
+		ctx.body = res(0, '关注成功')
+	},
+
+	// 取消关注某人
+	async unfollowUser(cyx, next) {
+		// 被取消关注者ID
+		const { id } = ctx.request.params
+		// 取消关注者ID
+		const { _id } = ctx.state.user
+		// 查找取消关注者的信息
+		const me = await UserModel.findById(_id).select('+following')
+		// 查找被取消关注的人索引
+		const index = me.following.map(id => id.toString()).indexOf(id)
+		// 被取消关注者当前是否已经关注
+		if (index < 0) { return ctx.body = res(1, '参数不合法') }
+		// 删除被取消关注者的 ID
+		me.following.splice(index, 1)
+		await me.save()
+
+		ctx.body = res(0, '取消关注成功')		
 	}
 	
 }
