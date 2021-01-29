@@ -46,6 +46,7 @@
 <script>
 import Vcode from 'vue-puzzle-vcode'
 import check from '@/utils/check.js'
+import user from '@/api/user.js'
 export default {
   name: 'Login',
   components: {
@@ -72,16 +73,21 @@ export default {
       })
     },
     // 用户登录
-    login() {
-      console.log('login success~')
+    async login() {
+      const res = await user.login({ data: { ...this.user } })
+      // 登录成功
+      if (res.code === 0) {
+        this.$notify({ type: 'success', title: '成功', message: res.msg, duration: 1500 })
+        // 设置 vuex 和 localstorage 中的数据
+        this.$store.commit('login', res.data)
+        // 重定向到上一页 或 回到首页
+        const { redirect } = this.$route.query
+        redirect ? this.$router.push(redirect) : this.$router.push('/home')
+      }
     },
     // 第三方登录
     snsLogin() {
-      this.$notify.info({
-        title: '提示',
-        message: '暂时不支持第三方账号登录~',
-        duration: 1500
-      })
+      this.$notify.info({ title: '提示', message: '暂时不支持第三方账号登录~', duration: 1500 })
     },
     // 滑块验证码验证成功
     codeSuccess() {

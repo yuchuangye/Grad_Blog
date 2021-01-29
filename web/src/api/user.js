@@ -16,5 +16,21 @@ export default {
       method: 'post',
       data
     })
+  },
+  // 重置密码身份验证
+  resetAuth({ data }) {
+    return request({
+      url: '/user/reset-auth',
+      method: 'post',
+      data
+    })
+  },
+  // 重置密码
+  resetPassword({ data }) {
+    return request({
+      url: '/user/password',
+      method: 'put',
+      data
+    })    
   }
 }

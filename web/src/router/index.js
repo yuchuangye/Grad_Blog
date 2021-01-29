@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '@/views/Main.vue'
-import store from '@/store'
+import storage from '@/utils/storage.js'
 
 Vue.use(VueRouter)
 
@@ -46,6 +46,12 @@ const routes = [
         name: 'home',
         component: () => import('@/views/Home'),
         meta: { title: '首页', requireAuth: false }
+      },
+      {
+        path: 'person-page',
+        name: 'person-page',
+        component: () => import('@/views/user/person-page'),
+        meta: { title: '个人主页', requireAuth: true }
       }
     ]
   }
@@ -80,7 +86,8 @@ router.beforeEach((to, from, next) => {
 
   // 当前路由跳转的系列中存在需要验证 token的路由
   if (to.matched.some(auth => auth.meta.requireAuth)) {
-    const token = store.userData.access_token
+    const token = storage.getItem('access_token')
+    
     // token不存在
     if (!token) {
       next({

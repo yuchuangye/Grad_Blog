@@ -5,7 +5,7 @@
 export default {
   // 设置数据
   setItem(key, value) {
-    if (typeof value === 'string') {
+    if (typeof value !== 'object' || typeof value == null) {
       localStorage.setItem(key, value)
     } else {
       localStorage.setItem(key, JSON.stringify(value))
@@ -14,15 +14,18 @@ export default {
   // 获取数据
   getItem(key) {
     const value = localStorage.getItem(key)
+    // 读取不存在的 key, 会返回 null, 注意并不是字符串类型的 null哦！
     if (value === null) {
       return ''
-    } else if (['[', ']', '{', '}'].includes(value)) {
-      // 普通字符串
-      return value
-    } else {
-      // 数组 或 对象
-      return JSON.parse(value || '{}')
     }
+    try { 
+      let data = JSON.parse(value)
+      // 没报错证明是 JSON字符串
+      return data
+    } catch { 
+      // 解析异常证明是普通字符串
+      return value 
+    } 
   },
   // 删除某一项
   removeItem(key) {

@@ -37,6 +37,7 @@
 <script>
 import Vcode from 'vue-puzzle-vcode'
 import check from '@/utils/check.js'
+import user from '@/api/user.js'
 export default {
   name: 'Register',
   components: {
@@ -65,8 +66,14 @@ export default {
       })
     },
     // 用户注册
-    register() {
-      console.log('register success~')
+    async register() {
+      const res = await user.register({ data: { ...this.user } })
+      // 注册成功
+      if (res.code === 0) {
+        this.$notify({ type: 'success', title: '成功', message: res.msg, duration: 1500 })
+        // 跳转到登录页
+        this.$router.push('/login')
+      }
     },
     // 滑块验证码验证成功
     codeSuccess() {

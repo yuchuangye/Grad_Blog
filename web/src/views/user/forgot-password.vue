@@ -44,7 +44,7 @@
       </div>
       <!-- 左下角图片 -->
       <div class="fixed-image">
-        <img class="w-100 block" src="../../assets/images/findpassword.jpeg">
+        <img class="w-100 block" src="../../assets/images/findpassword-remove.png">
       </div>
     </div>
   </div>
@@ -52,6 +52,7 @@
 
 <script>
 import check from '@/utils/check.js'
+import user from '@/api/user.js'
 export default {
   name: 'ForgotPassword',
   data() {
@@ -86,12 +87,22 @@ export default {
       })
     },
     // 发送请求验证输入的信息
-    vertifyInfo() {
-      this.jumpTwo()
+    async vertifyInfo() {
+      const { username, security } = this.user
+      const res = await user.resetAuth({ data: { username, security } })
+      if (res.code === 0) {
+        this.$notify({
+          type: 'success',
+          title: '成功',
+          message: res.msg,
+          duration: 1500
+        })
+        this.jumpTwo() 
+      }
     },
     // 发送请求设置新密码
-    setNewPassword() {
-      const { newpassword, order_newpassword } = this.user
+    async setNewPassword() {
+      const { username, security, newpassword, order_newpassword } = this.user
       // 两次输入的新密码不一致
       if (newpassword !== order_newpassword) {
         this.$notify.error({
@@ -101,7 +112,12 @@ export default {
         })
         return
       }
-      this.setSuccss()
+      const res = await user.resetPassword({ data: { username, security, password: newpassword } })
+      if (res.code === 0) {
+        // 无论目前登录与否，都退出登录清除用户信息
+        this.$store.commit('logout')
+        this.setSuccss() 
+      }
     },
     // 跳转第二步
     jumpTwo() {

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
 import Vue from 'vue'
+import storage from '@/utils/storage.js'
 
 // 创建一个axios实例
 const service = axios.create({
@@ -12,7 +13,7 @@ const service = axios.create({
 service.interceptors.request.use(
 
   config => {
-    const token = store.state.userData.access_token || ''
+    const token = storage.getItem('access_token')
     // 携带token, 设置请求头
     config.headers['Authorization'] = 'Bearer ' + token
     return config
@@ -32,7 +33,7 @@ service.interceptors.response.use(
     const res = response.data
     // 账号/密码错误, 用户/文章/问题 已存在...
     if (res.code === 1) {
-      this.$notify.error({
+      Vue.prototype.$notify.error({
         title: '错误',
         message: res.msg,
         duration: 1500
