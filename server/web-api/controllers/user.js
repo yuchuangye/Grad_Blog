@@ -81,7 +81,7 @@ module.exports = {
 	},
 
 	// 重置密码时的验证
-	async authUser(ctx, next) {
+	async resetAuth(ctx, next) {
 		// 参数校验
 		ctx.verifyParams({
 			username: { type: 'string', require: true },
@@ -112,7 +112,7 @@ module.exports = {
 	async followingList(ctx, next) {
 		const { id } = ctx.request.params
 		// 查找要获取粉丝列表的用户，并关联查询关注者的详细信息
-		const user = await UserModel.findById(id).select('+following').populate('folloing')
+		const user = await UserModel.findById(id).select('+following').populate('following')
 		// 用户不存在
 		if (!user) { return ctx.body = res(1, '参数不合法') }
 
@@ -134,8 +134,8 @@ module.exports = {
 		const { _id } = ctx.state.user
 		// 查找关注者的信息
 		const me = await UserModel.findById(_id).select('+following')
-		// 查找被关注者是否存在
 		const you = await UserModel.findById(id)
+		// 被关注者不存在 或 关注的是自己
 		if (!you || id === _id) { ctx.throw(422, '参数不合法') }
 		/* 
 			判断是否已经关注过
@@ -154,7 +154,7 @@ module.exports = {
 	},
 
 	// 取消关注某人
-	async unfollowUser(cyx, next) {
+	async unfollowUser(ctx, next) {
 		// 被取消关注者ID
 		const { id } = ctx.request.params
 		// 取消关注者ID
@@ -163,7 +163,7 @@ module.exports = {
 		const me = await UserModel.findById(_id).select('+following')
 		// 查找被取消关注的人索引
 		const index = me.following.map(id => id.toString()).indexOf(id)
-		// 被取消关注者当前是否已经关注
+		// 并没有关注这个人
 		if (index < 0) { return ctx.body = res(1, '参数不合法') }
 		// 删除被取消关注者的 ID
 		me.following.splice(index, 1)

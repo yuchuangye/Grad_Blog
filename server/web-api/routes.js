@@ -17,14 +17,14 @@ router.post('/upload/:mime/:type?', auth, handle.upload)
 router.post('/login', handle.login)
 router.post('/register', handle.register)
 
-router.post('/user/auth', handle.authUser)
+router.post('/user/reset-auth', handle.resetAuth)
 router.put('/user/password', handle.updateUserPassword)
 router.put('/user/baseinfo', auth, handle.updateUserInfo)
 
 router.get('/:id/user/following', handle.followingList)
 router.get('/:id/user/followers', handle.followersList)
-router.put('user/following/:id', auth, handle.followUser)
-router.delete('user/following/:id', auth, handle.unfollowUser)
+router.put('/user/following/:id', auth, handle.followUser)
+router.delete('/user/following/:id', auth, handle.unfollowUser)
 
 // 文章
 router.put('/article/:id', auth, judge, handle.updateArticle)
