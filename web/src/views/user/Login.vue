@@ -8,10 +8,10 @@
           <div class="card-body">
             <el-form ref="user-form" :model="user" :rules="rules">
               <el-form-item class="w-80 m-lr-auto" prop="username">
-                <el-input v-model="user.username" placeholder="你的名字" />
+                <el-input v-model="user.username" placeholder="你的名字" @keyup.native.enter="submit" />
               </el-form-item>
               <el-form-item class="w-80 m-lr-auto" prop="password">
-                <el-input v-model="user.password" placeholder="你的密码" show-password />
+                <el-input v-model="user.password" placeholder="你的密码" show-password @keyup.native.enter="submit" />
               </el-form-item>
               <el-form-item class="w-80 m-lr-auto">
                 <el-button type="primary w-100" @click="submit">登录</el-button>
@@ -74,7 +74,7 @@ export default {
     },
     // 用户登录
     async login() {
-      const res = await user.login({ data: { ...this.user } })
+      const res = await user.login({ data: { ...this.user }})
       // 登录成功
       if (res.code === 0) {
         this.$notify({ type: 'success', title: '成功', message: res.msg, duration: 1500 })

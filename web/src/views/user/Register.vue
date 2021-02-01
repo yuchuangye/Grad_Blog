@@ -14,7 +14,7 @@
                 <el-input v-model="user.password" placeholder="你的密码" show-password />
               </el-form-item>
               <el-form-item class="w-80 m-lr-auto" prop="security">
-                <el-input v-model="user.security" placeholder="你的密保问题" />
+                <el-input v-model="user.security" placeholder="你的密保问题" @keyup.native.enter="submit" />
               </el-form-item>
               <el-form-item class="w-80 m-lr-auto">
                 <el-button type="primary w-100" @click="submit">注册</el-button>
@@ -67,7 +67,7 @@ export default {
     },
     // 用户注册
     async register() {
-      const res = await user.register({ data: { ...this.user } })
+      const res = await user.register({ data: { ...this.user }})
       // 注册成功
       if (res.code === 0) {
         this.$notify({ type: 'success', title: '成功', message: res.msg, duration: 1500 })
