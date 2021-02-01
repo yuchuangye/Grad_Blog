@@ -14,7 +14,7 @@
                 <el-input v-model="user.password" placeholder="你的密码" show-password @keyup.native.enter="submit" />
               </el-form-item>
               <el-form-item class="w-80 m-lr-auto">
-                <el-button type="primary w-100" @click="submit">登录</el-button>
+                <el-button type="primary w-100" :loading="loading" @click="submit">登录</el-button>
               </el-form-item>
             </el-form>
             <div class="text-center">继续即代表同意
@@ -62,7 +62,8 @@ export default {
         username: [{ validator: check.checkUserName, trigger: 'blur' }],
         password: [{ validator: check.checkPassword, trigger: 'blur' }]
       },
-      codeShow: false // 控制滑块验证码显示
+      codeShow: false, // 控制滑块验证码显示
+      loading: false // 按钮加载中提示
     }
   },
   methods: {
@@ -74,7 +75,15 @@ export default {
     },
     // 用户登录
     async login() {
-      const res = await user.login({ data: { ...this.user }})
+      this.loading = true
+      let res
+      try {
+        res = await user.login({ data: { ...this.user }})
+      } catch (err) {
+        // 接口报错也要关闭 loading
+        this.loading = false
+        return
+      }
       // 登录成功
       if (res.code === 0) {
         this.$notify({ type: 'success', title: '成功', message: res.msg, duration: 1500 })
@@ -84,6 +93,8 @@ export default {
         const { redirect } = this.$route.query
         redirect ? this.$router.push(redirect) : this.$router.push('/home')
       }
+      // 无论 code是0|1 都要关闭loading
+      this.loading = false
     },
     // 第三方登录
     snsLogin() {

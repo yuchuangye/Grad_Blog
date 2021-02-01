@@ -17,7 +17,7 @@
                 <el-input v-model="user.security" placeholder="你的密保问题" @keyup.native.enter="submit" />
               </el-form-item>
               <el-form-item class="w-80 m-lr-auto">
-                <el-button type="primary w-100" @click="submit">注册</el-button>
+                <el-button type="primary w-100" :loading="loading" @click="submit">注册</el-button>
               </el-form-item>
             </el-form>
             <div class="text-center">继续即代表同意
@@ -55,7 +55,8 @@ export default {
         password: [{ validator: check.checkPassword, trigger: 'blur' }],
         security: [{ validator: check.checkSecure, trigger: 'blur' }]
       },
-      codeShow: false // 控制滑块验证码显示
+      codeShow: false, // 控制滑块验证码显示
+      loading: false // 按钮加载中提示
     }
   },
   methods: {
@@ -67,13 +68,23 @@ export default {
     },
     // 用户注册
     async register() {
-      const res = await user.register({ data: { ...this.user }})
+      this.loading = true
+      let res
+      try {
+        res = await user.register({ data: { ...this.user }})
+      } catch (err) {
+        // 接口报错也要关闭 loading
+        this.loading = false
+        return
+      }
       // 注册成功
       if (res.code === 0) {
         this.$notify({ type: 'success', title: '成功', message: res.msg, duration: 1500 })
         // 跳转到登录页
         this.$router.push('/login')
       }
+      // 无论 code是0|1 都要关闭loading
+      this.loading = false
     },
     // 滑块验证码验证成功
     codeSuccess() {
