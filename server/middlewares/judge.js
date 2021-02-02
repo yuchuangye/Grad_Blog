@@ -3,8 +3,8 @@
 */
 
 const judge = async (ctx, next) => {
-  const { user } = ctx.state
-  if (user.role !== 'admin') { ctx.throw(403, '你没有权限执行此操作') }
+  const { role } = ctx.state.user
+  if (role !== 'admin') { ctx.throw(403, '你没有权限执行此操作') }
   await next()
 }
 

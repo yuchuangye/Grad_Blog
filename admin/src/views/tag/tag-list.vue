@@ -1,5 +1,5 @@
 <template>
-  <div id="tag-List">
+  <div class="tag-List">
     Hello Word to TagList
   </div>
 </template>

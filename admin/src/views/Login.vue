@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import user from '@/api/user'
+import admin from '@/api/admin'
 export default {
   name: 'Login',
   data() {
@@ -61,7 +61,7 @@ export default {
       this.loading = true
       let res
       try {
-        res = await user.login({ data: { ...this.user }})
+        res = await admin.login({ data: { ...this.user }})
       } catch (err) {
         // 接口报错也要关闭 loading
         this.loading = false

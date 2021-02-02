@@ -51,29 +51,43 @@ const routes = [
       {
         path: 'add',
         name: 'tag-add',
-        component: () => import('@/views/tag/tag-add'),
+        component: () => import('@/views/tag/tag-edit'),
         meta: { title: '新增标签', requireAuth: true }
+      },
+      {
+        path: 'update/:id',
+        name: 'tag-update',
+        props: true,
+        component: () => import('@/views/tag/tag-edit'),
+        meta: { title: '更新标签', requireAuth: true }
       }
     ]
   },
 
   {
-    path: '/user',
+    path: '/admin',
     component: () => import('@/views/Layout'),
-    redirect: '/user/list',
-    name: 'user',
-    meta: { title: '管理员管理' },
+    redirect: '/admin/list',
+    name: 'admin',
+    meta: { title: '系统设置' },
     children: [
       {
         path: 'list',
-        name: 'user-list',
-        component: () => import('@/views/user/user-list'),
+        name: 'admin-list',
+        component: () => import('@/views/system/admin-list'),
         meta: { title: '管理员列表', requireAuth: true }
       },
       {
         path: 'add',
-        name: 'user-add',
-        component: () => import('@/views/user/user-add'),
+        name: 'admin-add',
+        component: () => import('@/views/system/admin-edit'),
+        meta: { title: '新增管理员', requireAuth: true }
+      },
+      {
+        path: 'update/:id',
+        name: 'admin-update',
+        props: true,
+        component: () => import('@/views/system/admin-edit'),
         meta: { title: '新增管理员', requireAuth: true }
       }
     ]

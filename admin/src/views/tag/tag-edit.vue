@@ -1,12 +1,12 @@
 <template>
-  <div id="user-add">
-    Hello Word to UserAdd...
+  <div class="tag-edit">
+    Hello Word to TagEdit...
   </div>
 </template>
 
 <script>
 export default {
-  name: 'UserAdd'
+  name: 'TagEdit'
 }
 </script>
 

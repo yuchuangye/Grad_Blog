@@ -52,11 +52,11 @@ export default {
     toggleMenuCollapse() {
       // 如果当前屏幕宽度 < 768(参考 bootstrap 移动设备)
       if (this.mobile) {
-        this.$store.dispatch('toggleCollapse', false)
+        this.$store.commit('toggleCollapse', false)
         this.$emit('openMenu')
         return
       }
-      this.$store.dispatch('toggleCollapse', !this.isCollapse)
+      this.$store.commit('toggleCollapse', !this.isCollapse)
     },
     // 点击菜单项触发事件
     handleCommand(command) {

@@ -11,8 +11,8 @@ module.exports = {
 	async login(ctx, next) {
 				// 参数校验
 		ctx.verifyParams({
-			username: { type: 'string', require: true },
-			password: { type: 'string', require: true }
+			username: { type: 'string', required: true },
+			password: { type: 'string', required: true }
 		})
 
 		const { username, password } = ctx.request.body
@@ -20,7 +20,7 @@ module.exports = {
 		// 查询该管理员
 		let admin = await AdminModel.findOne({ username }).select('+password')
 		// 管理员不存在
-		if (!admin) {  return ctx.body = res(1, '用户不存在') }
+		if (!admin) {  return ctx.body = res(1, '管理员不存在') }
 		// 管理员存在，验证密码
 		const isPassword = bcrypt.compareSync(password, admin.password)
 		// 密码错误
@@ -56,9 +56,9 @@ module.exports = {
 	async addAdmin(ctx, next) {
 		// 参数校验
 		ctx.verifyParams({
-			username: { type: 'string', require: true },
-			password: { type: 'string', require: true },
-			role: { type: 'string', require: true }
+			username: { type: 'string', required: true },
+			password: { type: 'string', required: true },
+			role: { type: 'string', required: true }
 		})
 		let { username, role } = ctx.request.body
 		// 去除左右两端空格
@@ -81,25 +81,24 @@ module.exports = {
 	async updateAdmin(ctx, next) {
 		// 参数校验
 		ctx.verifyParams({
-			password: { type: 'string', require: false },
-			role: { type: 'string', require: false }
+			password: { type: 'string', required: false },
+			role: { type: 'string', required: false }
 		})
 
-		let { password, role } = ctx.request.body
+		const { password, role } = ctx.request.body
 		const { id } = ctx.request.params
 
-		let hasAdmin = await AdminModel.findById(id)
+		const hasAdmin = await AdminModel.findById(id)
 		// 要更新的管理员不存在
 		if(!hasAdmin) { return ctx.body = res(1, '该管理员不存在') }
+
+		// 两个参数都没传
+		if (!password && !role) { return ctx.throw(422, '参数不合法') }
 		
 		// 管理员角色不符合要求
-		if (!['admin', 'visitor'].includes(role)) { ctx.throw(422, '参数不合法') }
+		if (role && !['admin', 'visitor'].includes(role)) { ctx.throw(422, '参数不合法') }
 
-		hasAdmin = await AdminModel.findOne({ username })
-		// 该名字的管理员已存在
-		if (hasAdmin) { return ctx.body = res(1, '该管理员已存在') }
-
-	  await AdminModel.findByIdAndUpdate(id, { username, role })
+	  await AdminModel.findByIdAndUpdate(id, ctx.request.body)
 		// 因为 findByIdAndUpdate() 返回的是更新前的信息, 所以需要再查一遍
 		const admin = await AdminModel.findById(id)
 		ctx.body = res(0, '更新管理员成功', { admin })		
@@ -108,6 +107,9 @@ module.exports = {
 	// 删除管理员
 	async delAdmin(ctx, next) {
 		const { id } = ctx.request.params
+		const { _id } = ctx.state.user
+		// 不能删除自己的账号
+		if (id === _id) { return ctx.body = res(1, '操作失败！不能删除自己') }
 
 		const hasAdmin = await AdminModel.findById(id)
 		// 要删除的管理员不存在

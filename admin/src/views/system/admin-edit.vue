@@ -1,12 +1,12 @@
 <template>
-  <div id="user-list">
-    Hello Word to UserAdd...
+  <div class="admin-edit">
+    Hello Word to AdminEdit...
   </div>
 </template>
 
 <script>
 export default {
-  name: 'UserAdd'
+  name: 'AdminEdit'
 }
 </script>
 

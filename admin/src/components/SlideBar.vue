@@ -32,11 +32,11 @@
 
       <el-submenu index="3">
         <template slot="title">
-          <i class="el-icon-s-custom" />
-          <span slot="title">管理员管理</span>
+          <i class="el-icon-s-tools" />
+          <span slot="title">系统设置</span>
         </template>
-        <el-menu-item index="/user/add">新增管理员</el-menu-item>
-        <el-menu-item index="/user/list">管理员列表</el-menu-item>
+        <el-menu-item index="/admin/add">新增管理员</el-menu-item>
+        <el-menu-item index="/admin/list">管理员列表</el-menu-item>
       </el-submenu>
 
       <el-menu-item class="github-link">
