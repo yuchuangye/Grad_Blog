@@ -5,7 +5,7 @@
 export default {
   // 设置数据
   setItem(key, value) {
-    if (typeof value !== 'object' || value == null) {
+    if (typeof value !== 'object' || value === null) {
       localStorage.setItem(key, value)
     } else {
       localStorage.setItem(key, JSON.stringify(value))

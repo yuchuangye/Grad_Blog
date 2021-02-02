@@ -10,8 +10,8 @@ export default {
       // service模块用于深层次遍历对象设置值
       state[keyname] = service.extend(true, state[keyname], stateData)
       // 字符串类型的 state数据, 防止其被初始化为 {}
-      if (typeof state[keyname] === 'object' 
-          && str_state.includes(keyname)) {
+      if (typeof state[keyname] === 'object' &&
+          str_state.includes(keyname)) {
         state[keyname] = stateData || ''
       }
       storage.setItem(keyname, state[keyname])
@@ -22,8 +22,8 @@ export default {
     // 重置vuex用户相关数据
     state.access_token = data.token
     state.userInfo = data.user
-    storage.setItem('access_token', state.access_token)    
-    storage.setItem('userInfo', state.userInfo)    
+    storage.setItem('access_token', state.access_token)
+    storage.setItem('userInfo', state.userInfo)
   },
   // 退出登录
   logout(state) {
@@ -38,7 +38,7 @@ export default {
       company: '', // 公司
       introduce: '' // 个人简介
     }
-    storage.setItem('access_token', state.access_token)    
+    storage.setItem('access_token', state.access_token)
     storage.setItem('userInfo', state.userInfo)
   }
 }

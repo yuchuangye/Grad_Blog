@@ -6,8 +6,8 @@ import mutations from './mutations'
 Vue.use(Vuex)
 
 const state = {
-  // 控制侧边栏折叠
-  isCollapse: false
+  isCollapse: false, // 控制侧边栏折叠
+  access_token: '' // token
 }
 
 export default new Vuex.Store({

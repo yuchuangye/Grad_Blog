@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import NProgress from 'nprogress'
-import { hasToken } from '../utils/auth'
-
+import storage from '@/utils/storage.js'
 
 Vue.use(VueRouter)
 
@@ -18,8 +17,8 @@ const routes = [
   {
     path: '*',
     name: '404',
-    component: () => import('@/views/404'),
-    meta: { title: '404' }
+    component: () => import('@/views/Error'),
+    meta: { title: '404 Not Found' }
   },
 
   {
@@ -31,112 +30,51 @@ const routes = [
         path: 'home',
         name: 'home',
         component: () => import('@/views/Home'),
-        meta: { title: '首页' }
-      }, 
-      {
-        path: '/permission',
-        name: 'permission',
-        component: () => import('@/views/permission/permission'),
-        meta: { title: '权限管理' }
+        meta: { title: '首页', requireAuth: true }
       }
     ]
   },
 
   {
-    path: '/goods',
+    path: '/tag',
     component: () => import('@/views/Layout'),
-    redirect: '/goods/list',
-    name: 'goods',
-    meta: { title: '商品管理' },
+    redirect: '/tag/list',
+    name: 'tag',
+    meta: { title: '标签管理' },
     children: [
       {
         path: 'list',
-        name: 'goods-list',
-        component: () => import('@/views/goods/GoodsList'),
-        meta: { title: '商品列表页面' }
-      }, 
+        name: 'tag-list',
+        component: () => import('@/views/tag/tag-list'),
+        meta: { title: '标签列表', requireAuth: true }
+      },
       {
         path: 'add',
-        name: 'goods-add',
-        component: () => import('@/views/goods/GoodsAdd'),
-        meta: { title: '添加商品' }
-      },
-      {
-        path: 'brand',
-        name: 'goods-brand',
-        component: () => import('@/views/goods/GoodsBrand'),
-        meta: { title: '品牌管理' }
-      },
-      {
-        path: 'detail',
-        name: 'goods-detail',
-        component: () => import('@/views/goods/GoodsDetail'),
-        meta: { title: '商品详情' }
+        name: 'tag-add',
+        component: () => import('@/views/tag/tag-add'),
+        meta: { title: '新增标签', requireAuth: true }
       }
     ]
   },
 
   {
-    path: '/order',
+    path: '/user',
     component: () => import('@/views/Layout'),
-    redirect: '/order/list',
-    name: 'order',
-    meta: { title: '订单管理' },
+    redirect: '/user/list',
+    name: 'user',
+    meta: { title: '管理员管理' },
     children: [
       {
         path: 'list',
-        name: 'order-list',
-        component: () => import('@/views/order/OrderList'),
-        meta: { title: '订单列表' }
-      }, 
-      {
-        path: 'set',
-        name: 'order-set',
-        component: () => import('@/views/order/OrderSet'),
-        meta: { title: '订单设置' }
-      }
-    ]
-  },
-
-  {
-    path: '/sale',
-    component: () => import('@/views/Layout'),
-    redirect: '/sale/seckill',
-    name: 'sale',
-    meta: { title: '营销管理' },
-    children: [
-      {
-        path: 'seckill',
-        name: 'sale-seckill',
-        component: () => import('@/views/sale/SaleSeckill'),
-        meta: { title: '秒杀活动' }
-      }, 
-      {
-        path: 'adset',
-        name: 'sale-adset',
-        component: () => import('@/views/sale/SaleAdset'),
-        meta: { title: '广告设置' }
+        name: 'user-list',
+        component: () => import('@/views/user/user-list'),
+        meta: { title: '管理员列表', requireAuth: true }
       },
       {
-        path: 'recomd',
-        name: 'sale-recomd',
-        redirect: '/sale/recomd/brand',
-        component: () => import('@/views/sale/sale_recomd/SaleRecomd'),
-        meta: { title: '推荐管理' },
-        children: [
-          {
-            path: 'brand',
-            name: 'recomd-brand',
-            component: () => import('@/views/sale/sale_recomd/RecomdBrand'),
-            meta: { title: '品牌推荐页面测试' }
-          },
-          {
-            path: 'special',
-            name: 'recomd-special',
-            component: () => import('@/views/sale/sale_recomd/RecomdSpecial'),
-            meta: { title: '专题推荐' }
-          },
-        ]
+        path: 'add',
+        name: 'user-add',
+        component: () => import('@/views/user/user-add'),
+        meta: { title: '新增管理员', requireAuth: true }
       }
     ]
   }
@@ -147,31 +85,30 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   // 启动加载条
   NProgress.start()
   // 动态设置标题
-  document.title = to.meta.title ? to.meta.title : 'cy-admin'
-  
-  // 验证token是否有效
-  const token = await hasToken()
+  document.title = to.meta.title ? to.meta.title : 'GRADBLOG-ADMIN'
 
-  if (token) {
-    // token有效
-    if (to.path === '/login') {
-      next({ path: '/' })
-      NProgress.done()
+  // 当前路由跳转的系列中存在需要验证 token的路由
+  if (to.matched.some(auth => auth.meta.requireAuth)) {
+    const token = storage.getItem('access_token')
+
+    // token不存在
+    if (!token) {
+      next({
+        path: '/login',
+        // 将当前路由的携带过去，方便登录成功后跳转回去
+        query: { redirect: to.fullPath }
+      })
     } else {
+      // token存在。 至于其有效与否, 放在响应拦截器中处理
       next()
     }
   } else {
-    // token无效
-    if ('/login'.indexOf(to.path) !== -1) {
-      next()
-    } else {
-      next(`/login?redirect=${to.path}`)
-      NProgress.done()
-    }
+    // 不需要验证token, 直接放行
+    next()
   }
 })
 

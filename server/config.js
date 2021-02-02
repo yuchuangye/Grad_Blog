@@ -4,7 +4,8 @@
 
 module.exports = {
 	// token密钥
-	secret: 'grad-blog-20210917-api',
+	webSecret: 'grad-blog-20210917-api',
+	adminSecret: 'grad-blog-admin-20210630-api',
 	// 数据库信息
 	dbInfo: {
 		name: 'grad_blog',

@@ -4,7 +4,7 @@ const ArticleModel = require('../../models/article.js')
 // 路由处理中间件
 module.exports = {
 
-	deleteArticle(ctx, next) {
+	delArticle(ctx, next) {
 		ctx.body = res(0, '删除文章成功')
 	},
 

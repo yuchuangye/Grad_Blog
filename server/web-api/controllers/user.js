@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { secret } = require('../../config.js')
+const { webSecret } = require('../../config.js')
 const res = require('../../utils/response.js')
 const UserModel = require('../../models/user.js')
 
@@ -29,7 +29,7 @@ module.exports = {
 		// 验证成功, 生成token, 有效期为10分钟
 		const token = jwt.sign(
 			{ _id: String(user._id), username: user.username }, 
-			 secret, 
+			 webSecret, 
 			{ expiresIn: 1000*60*10 }
 		)
 

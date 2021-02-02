@@ -1,7 +1,12 @@
 <template>
   <div class="slide-bar">
 
-    <el-menu 
+    <div class="slide-bar-logo">
+      <img class="logo" src="../assets/nav_logo.png">
+      <span class="title">GRADBLOG</span>
+    </div>
+
+    <el-menu
       router
       text-color="#bfcbd9"
       background-color="#304156"
@@ -12,97 +17,84 @@
       :collapse-transition="false"
     >
       <el-menu-item index="/home">
-        <i class="el-icon-s-home"></i>
+        <i class="el-icon-s-home" />
         <span slot="title">首页</span>
       </el-menu-item>
 
       <el-submenu index="2">
         <template slot="title">
-          <i class="el-icon-s-goods"></i>
-          <span slot="title">商品管理</span>
+          <i class="el-icon-collection-tag" />
+          <span slot="title">标签管理</span>
         </template>
-        <el-menu-item index="/goods/list">商品列表</el-menu-item>
-        <el-menu-item index="/goods/add">添加商品</el-menu-item>
-        <el-menu-item index="/goods/brand">品牌管理</el-menu-item>
+        <el-menu-item index="/tag/add">新增标签</el-menu-item>
+        <el-menu-item index="/tag/list">标签列表</el-menu-item>
       </el-submenu>
 
       <el-submenu index="3">
         <template slot="title">
-          <i class="el-icon-document"></i>
-          <span slot="title">订单管理</span>
+          <i class="el-icon-s-custom" />
+          <span slot="title">管理员管理</span>
         </template>
-        <el-menu-item index="/order/list">
-          <i class="el-icon-guide"></i>
-          <span slot="title">订单列表</span>
-        </el-menu-item>
-        <el-menu-item index="/order/set">
-          <i class="el-icon-setting"></i>
-          <span slot="title">订单设置</span>
-        </el-menu-item>
+        <el-menu-item index="/user/add">新增管理员</el-menu-item>
+        <el-menu-item index="/user/list">管理员列表</el-menu-item>
       </el-submenu>
-
-      <el-submenu index="4">
-        <template slot="title">
-          <i class="el-icon-help"></i>
-          <span slot="title">营销管理</span>
-        </template>
-        <el-menu-item index="/sale/seckill">秒杀活动</el-menu-item>
-        <el-menu-item index="/sale/adset">广告设置</el-menu-item>
-        <el-submenu index="4-3">
-          <span slot="title">推荐管理</span>
-          <el-menu-item index="/sale/recomd/brand">品牌推荐</el-menu-item>
-          <el-menu-item index="/sale/recomd/special">专题推荐</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-
-      <el-menu-item index="/permission">
-        <i class="el-icon-question"></i>
-        <span slot="title">权限管理</span>
-      </el-menu-item>
 
       <el-menu-item class="github-link">
         <a href="https://github.com/yuchuangye" target="_blank">
-          <i class="el-icon-link"></i>
+          <i class="el-icon-link" />
           <span slot="title">友情链接</span>
         </a>
       </el-menu-item>
-     
+
     </el-menu>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'SideBar',
-    computed: {
-      isCollapse () {
-        return this.$store.state.isCollapse
-      }
+export default {
+  name: 'SideBar',
+  computed: {
+    isCollapse() {
+      return this.$store.state.isCollapse
     }
   }
+}
 </script>
 
 <style lang="stylus" scoped>
-  @import "../assets/stylus/variable.styl"
-  .slide-bar
+@import "../stylus/variable.styl"
+.slide-bar
+  .slide-bar-logo
+    color: $colorA
+    padding: 0 20px
+    height: 50px
+    line-height: 50px
+    background-color: $colorJ
+    overflow: hidden
+    .logo
+      width: 32px
+      height: 32px
+      vertical-align: middle
+    .title
+      margin-left: 15px
+      font-weight: 700
 
-    .el-menu
-      border: none
+  .el-menu
+    border: none
 
-    .el-menu i
-      color: $colorD
-      margin-right: 10px 
-    .el-menu .github-link i
-      color: $colorD !important
-    .el-menu .el-menu-item.is-active i
-      color: $colorB
+  .el-menu i
+    color: $colorD
+    margin-right: 10px
+  .el-menu .github-link i
+    color: $colorD !important
+  .el-menu .el-menu-item.is-active i
+    color: $colorB
 
-    .el-menu .el-submenu li,
-    >>> .el-menu .el-submenu ul .el-submenu__title
-      background-color: $colorF !important
-    
-    .el-menu .el-submenu li:hover
-    >>> .el-menu .el-submenu ul .el-submenu__title:hover
-      background-color: $colorG !important 
+  .el-menu .el-submenu li,
+  >>> .el-menu .el-submenu ul .el-submenu__title
+    background-color: $colorF !important
 
+  .el-menu .el-submenu li:hover
+  >>> .el-menu .el-submenu ul .el-submenu__title:hover
+    background-color: $colorG !important
 </style>

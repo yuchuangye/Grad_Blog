@@ -87,7 +87,7 @@ router.beforeEach((to, from, next) => {
   // 当前路由跳转的系列中存在需要验证 token的路由
   if (to.matched.some(auth => auth.meta.requireAuth)) {
     const token = storage.getItem('access_token')
-    
+
     // token不存在
     if (!token) {
       next({
