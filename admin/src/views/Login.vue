@@ -6,14 +6,14 @@
         <div class="logo"><img width="70" src="../assets/logo.png"></div>
         <h2 class="title">GRADBLOG-ADMIN</h2>
 
-        <el-form ref="user-form" :model="user" :rules="rules" class="info">
+        <el-form ref="admin-form" :model="admin" :rules="rules" class="info">
           <el-form-item prop="username">
-            <el-input v-model="user.username" placeholder="请输入用户名">
+            <el-input v-model="admin.username" placeholder="请输入用户名">
               <i slot="prefix" class="el-input__icon el-icon-user" />
             </el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input v-model="user.password" placeholder="请输入密码" show-password>
+            <el-input v-model="admin.password" placeholder="请输入密码" show-password>
               <i slot="prefix" class="el-input__icon el-icon-lock" />
             </el-input>
           </el-form-item>
@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       loading: false, // 控制登录按钮的加载动画
-      user: { // 用户信息
+      admin: { // 用户信息
         username: 'admin',
         password: '123456'
       },
@@ -48,11 +48,11 @@ export default {
   methods: {
     // 重置表单
     resetForm() {
-      this.$refs['user-form'].resetFields()
+      this.$refs['admin-form'].resetFields()
     },
     // 提交表单
     submitForm() {
-      this.$refs['user-form'].validate(valid => {
+      this.$refs['admin-form'].validate(valid => {
         if (valid) { this.login() }
       })
     },
@@ -61,7 +61,7 @@ export default {
       this.loading = true
       let res
       try {
-        res = await admin.login({ data: { ...this.user }})
+        res = await admin.login({ data: this.admin })
       } catch (err) {
         // 接口报错也要关闭 loading
         this.loading = false
@@ -69,8 +69,8 @@ export default {
       }
       // 登录成功
       if (res.code === 0) {
-        this.$message({ type: 'success', message: res.msg, duration: 1500 })
-        this.$store.commit('login', res.data.token)
+        this.$message({ type: 'success', message: res.msg })
+        this.$store.commit('login', res.data)
         // 重定向到上一页 或 回到首页
         const { redirect } = this.$route.query
         redirect ? this.$router.push(redirect) : this.$router.push('/home')

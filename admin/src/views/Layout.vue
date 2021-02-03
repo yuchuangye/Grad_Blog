@@ -20,9 +20,7 @@
         </el-header>
         <el-main>
           <transition name="fade-transform" mode="out-in">
-            <keep-alive>
-              <router-view />
-            </keep-alive>
+            <router-view />
           </transition>
         </el-main>
       </el-container>

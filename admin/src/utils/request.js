@@ -32,13 +32,7 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     // 账号/密码错误, 用户/文章/问题 已存在...
-    if (res.code === 1) {
-      Vue.prototype.$message({
-        type: 'error',
-        message: res.msg,
-        duration: 1500
-      })
-    }
+    if (res.code === 1) { Vue.prototype.$message({ type: 'error', message: res.msg }) }
     return res
   },
 

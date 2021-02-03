@@ -26,27 +26,24 @@ export default {
     })
   },
   // 删除管理员
-  delAdmin({ id, params }) {
+  delAdmin({ id }) {
     return request({
       url: `/admin/${id}`,
-      method: 'delete',
-      params
+      method: 'delete'
     })
   },
   // 获取管理员列表
-  adminList({ params }) {
+  adminList() {
     return request({
       url: '/admin',
-      method: 'get',
-      params
+      method: 'get'
     })
   },
   // 获取某个管理员
-  itemAdmin({ id, params }) {
+  itemAdmin({ id }) {
     return request({
       url: `/admin/${id}`,
-      method: 'get',
-      params
+      method: 'get'
     })
   }
 }

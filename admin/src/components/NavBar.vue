@@ -18,7 +18,8 @@
           <i class="el-icon-caret-bottom" />
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="dashboard">首页</el-dropdown-item>
+          <el-dropdown-item>{{ adminname }}</el-dropdown-item>
+          <el-dropdown-item :divided="true" command="dashboard">首页</el-dropdown-item>
           <el-dropdown-item :divided="true" command="logout">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -45,6 +46,10 @@ export default {
   computed: {
     isCollapse() {
       return this.$store.state.isCollapse
+    },
+    // 管理员名字
+    adminname() {
+      return this.$store.state.adminInfo.username
     }
   },
   methods: {

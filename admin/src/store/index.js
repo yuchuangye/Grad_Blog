@@ -7,7 +7,11 @@ Vue.use(Vuex)
 
 const state = {
   isCollapse: false, // 控制侧边栏折叠
-  access_token: '' // token
+  access_token: '', // token
+  adminInfo: { // 管理员信息
+    username: 'admin',
+    role: 'admin'
+  }
 }
 
 export default new Vuex.Store({
