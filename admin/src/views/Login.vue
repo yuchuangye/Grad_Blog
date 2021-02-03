@@ -124,6 +124,5 @@ export default {
         color: $colorB
       .btn
         width: 44%
-
 </style>
 

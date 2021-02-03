@@ -28,12 +28,12 @@ export default {
   },
   data() {
     return {
-      admin: {
+      admin: { // 管理员信息
         username: '',
         password: '',
         role: ''
       },
-      roleList: [
+      roleList: [ // 角色列表
         { id: 1, value: 'visitor', label: '访客' },
         { id: 2, value: 'admin', label: '管理员' }
       ]
