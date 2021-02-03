@@ -42,6 +42,7 @@ service.interceptors.response.use(
     switch (status) {
       // 401 未登录(无token/token无效/过期) -跳转登录页面，并携带当前页面的路径
       case 401:
+        Vue.prototype.$message({ type: 'error', message: '登录过期 请重新登录！' })
         store.dispatch('reLogin')
         break
       // 403 验证是通过的, 但没权限访问该接口

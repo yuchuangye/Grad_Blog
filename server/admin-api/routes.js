@@ -10,6 +10,9 @@ const router = new Router({ prefix: '/api/admin' })
 // 使用koa-jwt 生成验证token 的中间件函数
 const auth = koaJwt({ secret: adminSecret })
 
+// 文件上传
+router.post('/upload/:mime/:type?', auth, handle.upload)
+
 // 管理员
 router.post('/login', handle.login)
 
