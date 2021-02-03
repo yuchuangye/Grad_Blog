@@ -21,5 +21,7 @@ module.exports = {
 	get domain() { return `http://${this.ip}:${this.port}` },
 	get s_domain() { return `https://${this.ip}:${this.port}` },
 	// 默认头像
-	get d_avatar() { return `${this.domain}/d_avatar.png` }
+	get d_avatar() { return `${this.domain}/d_avatar.png` },
+	// 标签默认图标
+	get d_tag() { return `${this.domain}/d_tag.png` }
 }

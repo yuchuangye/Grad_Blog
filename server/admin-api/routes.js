@@ -20,8 +20,12 @@ router.put('/admin/:id', auth, judge, handle.updateAdmin)
 router.delete('/admin/:id', auth, judge, handle.delAdmin)
 router.post('/admin', auth, judge, handle.addAdmin)
 
-// 文章
-router.get('/test2', handle.test2)
-router.post('/test/add2', handle.testAdd2)
+// 标签
+router.get('/tag', handle.tagList)
+router.get('/tag/:id', handle.itemTag)
+
+router.put('/tag/:id', handle.updateTag)
+router.delete('tag/:id', handle.delTag)
+router.post('/tag', handle.addTag)
 
 module.exports = router
