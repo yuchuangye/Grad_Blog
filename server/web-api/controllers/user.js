@@ -26,11 +26,11 @@ module.exports = {
 		// 密码错误
 		if (!isPassword) { return ctx.body = res(1, '密码错误') }
 
-		// 验证成功, 生成token, 有效期为10分钟
+		// 验证成功, 生成token, 有效期为100分钟, 数值被解析成秒计算
 		const token = jwt.sign(
 			{ _id: String(user._id), username: user.username }, 
 			 webSecret, 
-			{ expiresIn: 1000*60*10 }
+			{ expiresIn: 60*100 }
 		)
 
 		user = await UserModel.findOne({ username })
