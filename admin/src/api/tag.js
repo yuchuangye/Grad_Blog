@@ -24,10 +24,17 @@ export default {
       method: 'delete'
     })
   },
-  // 获取标签列表
-  tagList() {
+  // 获取一级标签列表
+  tagOneList() {
     return request({
-      url: '/tag',
+      url: '/tag/one',
+      method: 'get'
+    })
+  },
+  // 获取二级标签列表
+  tagTwoList({ id }) {
+    return request({
+      url: `/tag/two/${id}`,
       method: 'get'
     })
   },

@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import tag from '@/api/tag.js'
 export default {
   name: 'TagList'
 }

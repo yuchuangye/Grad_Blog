@@ -24,11 +24,12 @@ router.delete('/admin/:id', auth, judge, handle.delAdmin)
 router.post('/admin', auth, judge, handle.addAdmin)
 
 // 标签
-router.get('/tag', handle.tagList)
+router.get('/tag/one', handle.tagOneList)
+router.get('/tag/two/:id', handle.tagTwoList)
 router.get('/tag/:id', handle.itemTag)
 
-router.put('/tag/:id', handle.updateTag)
-router.delete('tag/:id', handle.delTag)
-router.post('/tag', handle.addTag)
+router.put('/tag/:id', auth, judge, handle.updateTag)
+router.delete('/tag/:id', auth, judge, handle.delTag)
+router.post('/tag', auth, judge, handle.addTag)
 
 module.exports = router
