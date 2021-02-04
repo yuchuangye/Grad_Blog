@@ -25,17 +25,19 @@ export default {
     })
   },
   // 获取一级标签列表
-  tagOneList() {
+  tagOneList({ params }) {
     return request({
       url: '/tag/one',
-      method: 'get'
+      method: 'get',
+      params
     })
   },
   // 获取二级标签列表
-  tagTwoList({ id }) {
+  tagTwoList({ id, params }) {
     return request({
       url: `/tag/two/${id}`,
-      method: 'get'
+      method: 'get',
+      params
     })
   },
   // 获取某个标签

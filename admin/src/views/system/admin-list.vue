@@ -15,7 +15,7 @@
       <el-table-column prop="username" label="用户名" width="320" />
       <el-table-column prop="password" label="密码" width="320" />
       <el-table-column prop="role" label="角色" width="320" />
-      <el-table-column label="操作">
+      <el-table-column label="操作" min-width="150" fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" @click="$router.push(`/admin/update/${scope.row._id}`)">编辑</el-button>
           <el-button size="mini" type="danger" @click="delAdmin(scope.row)">删除</el-button>
