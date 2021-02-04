@@ -47,7 +47,8 @@ export default {
         parent: ''
       },
       tagOneList: [], // 一级标签数据
-      editFlag: true // 标记要更新的标签是一级还是二级, true为一级
+      editFlag: true, // 标记要更新的标签是一级还是二级, true为一级
+      initName: '' // 用于记录更新时用户名是否有改变
     }
   },
   watch: {
@@ -69,48 +70,52 @@ export default {
 
     // 新增或更新标签
     async save() {
-      const { name, icon, parent } = this.model
+      const { name } = this.model
       const tag_id = this.id
+      const { initName } = this
+      // 不管是新增还是更新标签名字都要存在，而且不能大于8个字符
+      if (!name || name.length > 12) { return this.$message({ type: 'error', message: '标签名字不合法' }) }
+      // 请求参数
+      let params = {}
+      // 过滤出 tag 信息中不为空的字段
+      for (let key in this.model) {
+        if (this.model[key]) { params[key] = this.model[key] }
+      }
+      // 更新 tag_id 判断是更新还是新增
       if (tag_id) {
-        // 更新标签
-
-        if (!name && !icon && !parent) {
-          return this.$message({ type: 'error', message: '至少要填写一项' })
-        }
-        this.updateTag()
+        // 判断名字是否有改变, 没有则删除参数中的 name 属性
+        if (name === initName) { delete params.name }
+        this.updateTag(params)
       } else {
-        // 新增标签
-
-        if (!name) { return this.$message({ type: 'error', message: '标签名字不能为空' }) }
-        if (name.length > 8) { return this.$message({ type: 'error', message: '标签名字不能大于8个字符' }) }
-
-        this.addTag()
+        this.addTag(params)
       }
     },
 
     // 获取一级标签数据
     async getTagOneList() {
       const res = await tag.tagOneList({ params: { page: 1, pageSize: 9999 }})
-      if (res.code === 0) {
-        this.tagOneList = res.data.tagList
-      }
+      if (res.code === 0) { this.tagOneList = res.data.tagList }
     },
 
     // 获取标签详情
     async getItemTag() {
-      const res = await tag.itemTag({ id: this.id })
+      const id = this.id
+      const res = await tag.itemTag({ id })
       if (res.code === 0) {
         const { tag } = res.data
         this.model.name = tag.name
         this.model.icon = tag.icon
-        this.model.parent = tag.parent
+        this.model.parent = tag.parent || ''
+        // 没有 parent字段表示是一级标签
         this.editFlag = !tag.parent
+        // 记录下标签的名字
+        this.initName = tag.name
       }
     },
 
     // 新增标签
-    async addTag() {
-      const res = await tag.addTag({ data: this.model })
+    async addTag(data) {
+      const res = await tag.addTag({ data })
       if (res.code === 0) {
         this.$message({ type: 'success', message: res.msg })
         // 跳转到列表页
@@ -119,8 +124,9 @@ export default {
     },
 
     // 更新标签
-    async updateTag() {
-      const res = await tag.updateTag({ id: this.id, data: this.model })
+    async updateTag(data) {
+      const id = this.id
+      const res = await tag.updateTag({ id, data })
       if (res.code === 0) {
         this.$message({ type: 'success', message: res.msg })
         // 跳转到列表页
@@ -136,7 +142,7 @@ export default {
 @import "../../stylus/variable.styl"
 .tag-edit
   .box-card
-    width: 520px
+    max-width: 520px
     box-shadow: none
     .title, .el-select, .el-input
       margin-bottom: 30px

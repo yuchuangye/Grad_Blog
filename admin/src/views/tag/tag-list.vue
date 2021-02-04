@@ -14,15 +14,20 @@
     <el-table :data="tagList" border style="width: 100%">
       <el-table-column prop="number" label="编号" width="150" />
       <el-table-column prop="name" label="标签名称" width="300" />
-      <el-table-column label="图标" width="300">
+      <el-table-column label="图标" width="200">
         <template slot-scope="scope">
           <el-avatar shape="square" :size="40" :src="scope.row.icon" />
         </template>
       </el-table-column>
-      <el-table-column prop="level" label="级别" width="200" />
-      <el-table-column label="设置">
+      <el-table-column prop="level" label="级别" width="250" />
+      <el-table-column label="设置" width="250">
         <template slot-scope="scope">
-          <el-button size="mini" :disabled="scope.row.level==='二级'" @click="nextLevel(scope.row._id)">查看下级</el-button>
+          <el-button 
+            size="mini" 
+            :disabled="scope.row.level==='二级'" 
+            @click="nextLevel(scope.row._id)"
+          >查看下级
+          </el-button>
         </template>
       </el-table-column>
       <el-table-column label="操作" min-width="150" fixed="right">
@@ -64,7 +69,7 @@ export default {
     }
   },
   mounted() {
-    // 加载刷新获取一级标签
+    // 加载刷新时获取一级标签
     this.getTagOneList()
   },
   methods: {
@@ -97,7 +102,7 @@ export default {
           const { page, tagList, tagOneId } = this
           // 删除成功
           this.$message({ type: 'success', message: res.msg })
-          // 如果当前不是第一页且当前页删除前 只有一条数据
+          // 如果当前不是第一页且当前页删除前 只有一条数据, 那么页数-1
           if (page !== 1 && tagList.length === 1) { this.page = page - 1 }
           // 根据一级标签 id 有无判断是获取一级还是二级标签列表
           tagOneId ? this.getTagTwoList(tagOneId) : this.getTagOneList()

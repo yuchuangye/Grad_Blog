@@ -126,7 +126,7 @@ export default {
 @import "../../stylus/variable.styl"
 .admin-edit
   .box-card
-    width: 520px
+    max-width: 520px
     box-shadow: none
     .title, .el-input, .el-select
       margin-bottom: 30px

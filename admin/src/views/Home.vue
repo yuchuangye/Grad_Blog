@@ -13,6 +13,7 @@ export default {
 <style lang="stylus" scoped>
 @import "../stylus/variable.styl"
 .home
+  line-height: 1.8 
   color: $colorI
   font-size: $font-xl
   font-weight: 700
