@@ -56,6 +56,7 @@ export default {
     this.id && this.getItemAdmin()
   },
   methods: {
+
     // 新增或更新管理员
     async save() {
       const { username, password, role } = this.admin
@@ -97,6 +98,7 @@ export default {
         this.addAdmin(params)
       }
     },
+
     // 获取管理员详情
     async getItemAdmin() {
       const id = this.id
@@ -109,6 +111,7 @@ export default {
         this.admin.role = admin.role
       }
     },
+
     // 新增管理员
     async addAdmin(data) {
       const res = await admin.addAdmin({ data })
@@ -118,6 +121,7 @@ export default {
         this.$router.push('/admin/list')
       }
     },
+
     // 更新管理员
     async updateAdmin(data) {
       const id = this.id
@@ -126,15 +130,17 @@ export default {
       if (res.code === 0) {
         const cur_admin = storage.getItem('adminInfo')
         const upd_admin = res.data.admin
-        this.$message({ type: 'success', message: res.msg })
         // 跳转到列表页
         this.$router.push('/admin/list')
         // 更新的是当前登录的用户, 让其重新登录
         if (cur_admin.username === upd_admin.username) {
           this.$store.dispatch('reLogin')
+        } else {
+          this.$message({ type: 'success', message: res.msg })
         }
       }
     }
+    
   }
 }
 </script>

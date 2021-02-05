@@ -38,6 +38,7 @@ export default {
     this.getAdminList()
   },
   methods: {
+
     // 删除管理员
     delAdmin(row) {
       this.$confirm(`确认要删除管理员"${row.username}"?`, '提示', {
@@ -57,6 +58,7 @@ export default {
         }
       })
     },
+
     // 获取管理员列表
     async getAdminList() {
       const res = await admin.adminList()
@@ -70,6 +72,7 @@ export default {
         this.adminList = adminList
       }
     }
+    
   }
 }
 </script>
