@@ -1,7 +1,7 @@
 <template>
   <div class="tag-List">
 
-    <el-card class="box-card data-list-card">
+    <el-card class="box-list-card">
       <div class="left">
         <i class="el-icon-document" />
         <span class="title">数据列表</span>
@@ -22,9 +22,9 @@
       <el-table-column prop="level" label="级别" width="250" />
       <el-table-column label="设置" width="250">
         <template slot-scope="scope">
-          <el-button 
-            size="mini" 
-            :disabled="scope.row.level==='二级'" 
+          <el-button
+            size="mini"
+            :disabled="scope.row.level==='二级'"
             @click="nextLevel(scope.row._id)"
           >查看下级
           </el-button>
@@ -65,7 +65,8 @@ export default {
       tagOneId: '', // 一级分类ID
       total: 5, // 当前级别标签的总数
       page: 1, // 当前页数
-      pageSize: 5 // 每页总数
+      pageSize: 5, // 每页总数
+      curOnePage: 1 // 用于记录当前查看的是那个一级标签的二级标签
     }
   },
   mounted() {
@@ -99,13 +100,12 @@ export default {
       }).then(async() => {
         const res = await tag.delTag({ id: row._id })
         if (res.code === 0) {
-          const { page, tagList, tagOneId } = this
           // 删除成功
           this.$message({ type: 'success', message: res.msg })
           // 如果当前不是第一页且当前页删除前 只有一条数据, 那么页数-1
-          if (page !== 1 && tagList.length === 1) { this.page = page - 1 }
+          if (this.page !== 1 && this.tagList.length === 1) { this.page = this.page - 1 }
           // 根据一级标签 id 有无判断是获取一级还是二级标签列表
-          tagOneId ? this.getTagTwoList(tagOneId) : this.getTagOneList()
+          this.tagOneId ? this.getTagTwoList(this.tagOneId) : this.getTagOneList()
         }
       })
     },
@@ -126,6 +126,8 @@ export default {
 
     // 页数改变
     pageChange(currentPage) {
+      // 一级分类下切换时, 同时改变 curOnePage 的值
+      if (!this.tagOneId) { this.curOnePage = currentPage }
       this.page = currentPage
       // 根据一级标签 id 有无判断是获取一级还是二级标签列表
       this.tagOneId ? this.getTagTwoList(this.tagOneId) : this.getTagOneList()
@@ -140,8 +142,8 @@ export default {
 
     // 返回上级标签
     backLevel() {
-      // 返回上级标签时页数要重置为1
-      this.page = 1
+      // 返回上级标签时页数重置为之前的页数
+      this.page = this.curOnePage
       this.getTagOneList()
     }
 

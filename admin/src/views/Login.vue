@@ -37,7 +37,7 @@ export default {
       loading: false, // 控制登录按钮的加载动画
       admin: { // 用户信息
         username: 'admin',
-        password: '123456'
+        password: 'admin123456'
       },
       rules: { // 表单验证规则
         username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],

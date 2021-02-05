@@ -102,5 +102,4 @@ export default {
     .el-avatar--square
       border-radius: 10px
       margin-right: 10px
-
 </style>

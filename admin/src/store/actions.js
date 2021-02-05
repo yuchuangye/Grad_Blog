@@ -1,9 +1,11 @@
 import router from '@/router'
+import Vue from 'vue'
 
 export default {
   // 重新登录
   reLogin({ commit }) {
     // 退出登录
+    Vue.prototype.$message({ type: 'error', message: '登录过期 请重新登录！' })
     commit('logout')
     router.push({
       path: '/login',

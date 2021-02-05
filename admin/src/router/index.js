@@ -88,7 +88,7 @@ const routes = [
         name: 'admin-update',
         props: true,
         component: () => import('@/views/system/admin-edit'),
-        meta: { title: '新增管理员', requireAuth: true }
+        meta: { title: '更新管理员', requireAuth: true }
       }
     ]
   }

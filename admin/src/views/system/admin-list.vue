@@ -1,6 +1,6 @@
 <template>
   <div class="admin-list">
-    <el-card class="box-card data-list-card">
+    <el-card class="box-list-card">
       <div class="left">
         <i class="el-icon-document" />
         <span class="title">数据列表</span>
@@ -12,9 +12,9 @@
 
     <el-table :data="adminList" border style="width: 100%">
       <el-table-column prop="number" label="编号" width="150" />
-      <el-table-column prop="username" label="用户名" width="320" />
-      <el-table-column prop="password" label="密码" width="320" />
-      <el-table-column prop="role" label="角色" width="320" />
+      <el-table-column prop="username" label="用户名" width="350" />
+      <el-table-column prop="password" label="密码" width="350" />
+      <el-table-column prop="role" label="角色" width="350" />
       <el-table-column label="操作" min-width="150" fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" @click="$router.push(`/admin/update/${scope.row._id}`)">编辑</el-button>
@@ -45,6 +45,10 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(async() => {
+        // 不能 对 admin这个管理员 进行删除
+        if (row.username === 'admin') {
+          return this.$message({ type: 'error', message: 'admin 管理员不能被删除' })
+        }
         const res = await admin.delAdmin({ id: row._id })
         if (res.code === 0) {
           // 删除成功

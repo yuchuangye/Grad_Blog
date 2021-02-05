@@ -1,6 +1,6 @@
 <template>
   <div class="tag-edit">
-    <el-card class="box-card">
+    <el-card class="box-form-card">
       <h1 class="title">{{ id ? '更新' : '新建' }}标签</h1>
       <el-select v-model="model.parent" placeholder="请选择">
         <el-option label="无上级标签" value="" :disabled="!!(id && !editFlag)" />
@@ -14,11 +14,16 @@
       </el-select>
       <el-input v-model="model.name" placeholder="请输入标签名称" />
       <el-upload
+        ref="upload"
         class="avatar-uploader"
+        accept="image/*"
         :action="uploadUrl"
         :show-file-list="false"
+        :file-list="fileList"
         :headers="uploadHeaders"
         :on-success="uploadSuccess"
+        :auto-upload="false"
+        :on-change="fileChange"
       >
         <img v-if="model.icon" :src="model.icon" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon" />
@@ -32,10 +37,10 @@
 
 <script>
 import tag from '@/api/tag.js'
-import ele_upload from '@/mixins/ele_upload.js'
+import elm_upload from '@/mixins/elm_upload.js'
 export default {
   name: 'TagEdit',
-  mixins: [ele_upload],
+  mixins: [elm_upload],
   props: {
     id: { type: String, default: '' } // 更新的标签ID
   },
@@ -46,9 +51,12 @@ export default {
         icon: '',
         parent: ''
       },
+      fileList: [], // 上传的文件列表，这里是用来防止多文件上传
       tagOneList: [], // 一级标签数据
       editFlag: true, // 标记要更新的标签是一级还是二级, true为一级
-      initName: '' // 用于记录更新时用户名是否有改变
+      initName: '', // 用于记录更新时用户名是否有改变
+      initIcon: '', // 用于记录更新时图标是否有改变
+      isUpload: false // 用于记录当前显示的图标已经上传到过服务器
     }
   },
   watch: {
@@ -70,24 +78,27 @@ export default {
 
     // 新增或更新标签
     async save() {
-      const { name } = this.model
-      const tag_id = this.id
-      const { initName } = this
-      // 不管是新增还是更新标签名字都要存在，而且不能大于8个字符
+      const { name, icon } = this.model
+      const { id, initIcon } = this
+      // 不管是新增还是更新标签名字都要存在，而且不能大于12个字符
       if (!name || name.length > 12) { return this.$message({ type: 'error', message: '标签名字不合法' }) }
-      // 请求参数
-      let params = {}
-      // 过滤出 tag 信息中不为空的字段
-      for (let key in this.model) {
-        if (this.model[key]) { params[key] = this.model[key] }
-      }
-      // 更新 tag_id 判断是更新还是新增
-      if (tag_id) {
-        // 判断名字是否有改变, 没有则删除参数中的 name 属性
-        if (name === initName) { delete params.name }
-        this.updateTag(params)
+      // 手动上传文件, 不使用 elm 的自动上传, 点击保存时才上传图片到服务器
+      if (id) {
+        // 更新时图标没改变
+        if (icon === initIcon) {
+          this.editTag()
+        } else {
+          // 根据当前显示的图标是否已经上传过服务期执行不同操作
+          this.isUpload ? this.editTag() : this.$refs.upload.submit()
+        }
       } else {
-        this.addTag(params)
+        // 新增时上传了图标
+        if (icon) {
+          // 根据当前显示的图标是否已经上传过服务期执行不同操作
+          this.isUpload ? this.editTag() : this.$refs.upload.submit()
+        } else {
+          this.editTag()
+        }
       }
     },
 
@@ -108,8 +119,9 @@ export default {
         this.model.parent = tag.parent || ''
         // 没有 parent字段表示是一级标签
         this.editFlag = !tag.parent
-        // 记录下标签的名字
+        // 记录下标签的初始名字和图标
         this.initName = tag.name
+        this.initIcon = tag.icon
       }
     },
 
@@ -132,6 +144,51 @@ export default {
         // 跳转到列表页
         this.$router.push('/tag/list')
       }
+    },
+
+    // 处理请求参数和发送请求
+    async editTag() {
+      const { name } = this.model
+      const { id, initName } = this
+
+      // 请求参数
+      const params = {}
+      // 过滤出 tag 信息中不为空的字段
+      for (const key in this.model) {
+        if (this.model[key]) { params[key] = this.model[key] }
+      }
+      // 更新 id 判断是更新还是新增
+      if (id) {
+        // 判断名字是否有改变, 没有则删除参数中的 name 属性
+        if (name === initName) { delete params.name }
+        this.updateTag(params)
+      } else {
+        this.addTag(params)
+      }
+    },
+
+    // 文件内容改变时触发
+    fileChange(file) {
+      const that = this
+      // 覆盖当前上传文件列表的项
+      this.fileList = [file]
+      const fr = new FileReader()
+      fr.readAsDataURL(file.raw)
+      // this.result 是图片的 base64编码, 用于本地预览图片
+      fr.onloadend = function() {
+        if (file.status === 'ready') {
+          that.isUpload = false
+          that.model.icon = this.result
+        }
+      }
+    },
+
+    // 文件上传成功时触发
+    uploadSuccess(res) {
+      // 覆盖 预览时的 base64 url
+      this.model.icon = res.data.url
+      this.isUpload = true
+      this.editTag()
     }
 
   }
@@ -139,18 +196,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import "../../stylus/variable.styl"
-.tag-edit
-  .box-card
-    max-width: 520px
-    box-shadow: none
-    .title, .el-select, .el-input
-      margin-bottom: 30px
-    .title
-      font-size: $font-s
-    .el-input
-      width: 70%
-    .save
-      margin-top: 30px
+
 </style>
 

@@ -58,9 +58,9 @@ module.exports = {
 		ctx.verifyParams({
 			username: { type: 'string', required: true },
 			password: { type: 'string', required: true },
-			role: { type: 'string', required: true }
+			role: { type: 'string', required: false }
 		})
-		let { username, role } = ctx.request.body
+		let { username, role = 'visitor' } = ctx.request.body
 		// 去除左右两端空格
 		username = username.trim()
 		if (!username || !['admin', 'visitor'].includes(role)) { ctx.throw(422, '参数不合法') }

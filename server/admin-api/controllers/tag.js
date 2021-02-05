@@ -38,6 +38,8 @@ module.exports = {
 			注意：因为 parent 字段是 ObjectId类型, 如果你传过来的 id 不符合
 					 ObejctId 的规范, 操作数据库的时候 mongoose会抛出一个500错误, 如何符合则会自动将其
 					 转换为 ObjectId类型
+
+			可以不用判断 一级标签是否存在，不存在查询出来 tagList = []
 		*/
 		const tagList = await TagModel.find({ parent: { $exists: 1 }, parent: id }).skip(skip).limit(pageSize)
 
@@ -74,7 +76,6 @@ module.exports = {
 		let isHave, tag
 		// 根据 parent的值判断添加的是一级标签还是二级标签
 		if (!parent) {
-			// 添加一级
 
 			// 一级标签不能同名, 一级和二级可以同名
 			isHave = await TagModel.findOne({ parent: { $exists: 0 }, name })
@@ -86,11 +87,10 @@ module.exports = {
 
 		} else {
 
-			// 添加二级
-
 		  // 判断一级标签是否存在, 还要注意不能把二级添加到二级下
 			const tagOne = await TagModel.findOne({ parent: { $exists: 0 }, _id: parent })
 			if (!tagOne) {　return ctx.body = res(1, '该一级标签不存在')　}
+
 			// 不同一级下的二级可以同名
 			isHave = await TagModel.findOne({ name, parent })
 			if (isHave) { return ctx.body = res(1, '该标签下的二级标签已存在') }
@@ -124,7 +124,6 @@ module.exports = {
 		// 根据 parent 字段判断更新的是一级标签还是二级标签
 		let tag
 		if (!parent) {
-			// 更新的是一级标签
 
 			// 一级标签不能同名, 一级和二级可以同名
 			isHave = await TagModel.findOne({ parent: { $exists: 0 }, name })
@@ -134,7 +133,6 @@ module.exports = {
 			tag = await TagModel.findById(id)
 
 		} else {
-			// 更新的是二级标签
 
 			// 判断一级标签是否存在, 还要注意不能把二级添加到二级下
 			const tagOne = await TagModel.findOne({ parent: { $exists: 0 }, _id: parent })
