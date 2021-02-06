@@ -40,6 +40,7 @@
     <!-- 分页器 -->
     <div class="page">
       <el-pagination
+        v-if="isPage"
         background
         layout="prev, pager, next"
         :total="total"
@@ -61,12 +62,13 @@ export default {
   name: 'TagList',
   data() {
     return {
+      isPage: true, // 控制分页器的显示，这里是用于解决一二级标签切换时页码高亮不正确问题
       tagList: [], // 标签列表数据
       tagOneId: '', // 一级分类ID
-      total: 5, // 当前级别标签的总数
+      total: 0, // 当前级别标签的总数
       page: 1, // 当前页数
       pageSize: 5, // 每页总数
-      curOnePage: 1 // 用于记录当前查看的是那个一级标签的二级标签
+      curOnePage: 1 // 用于记录当前查看的是那个一级标签下的二级标签
     }
   },
   mounted() {
@@ -138,6 +140,9 @@ export default {
       // 查看下级标签时页数要重置为1
       this.page = 1
       this.getTagTwoList(id)
+      // 重新渲染分页组件，解决页码高亮不正确问题
+      this.isPage = false
+      this.$nextTick(() => { this.isPage = true })
     },
 
     // 返回上级标签
@@ -145,6 +150,9 @@ export default {
       // 返回上级标签时页数重置为之前的页数
       this.page = this.curOnePage
       this.getTagOneList()
+      // 重新渲染分页组件，解决页码高亮不正确问题
+      this.isPage = false
+      this.$nextTick(() => { this.isPage = true })
     }
 
   }

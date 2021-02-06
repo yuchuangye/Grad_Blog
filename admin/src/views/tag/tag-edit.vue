@@ -167,7 +167,7 @@ export default {
       }
     },
 
-    // 文件内容改变时触发
+    // 文件内容改变、上传成功和失败都会触发
     fileChange(file) {
       const that = this
       // 覆盖当前上传文件列表的项
@@ -176,7 +176,9 @@ export default {
       fr.readAsDataURL(file.raw)
       // this.result 是图片的 base64编码, 用于本地预览图片
       fr.onloadend = function() {
+        // 文件状态改变时
         if (file.status === 'ready') {
+          // 标记当前显示的图标为未上传状态
           that.isUpload = false
           that.model.icon = this.result
         }
@@ -185,7 +187,7 @@ export default {
 
     // 文件上传成功时触发
     uploadSuccess(res) {
-      // 覆盖 预览时的 base64 url
+      // 真实url 覆盖 预览时的 base64 字符串
       this.model.icon = res.data.url
       this.isUpload = true
       this.editTag()

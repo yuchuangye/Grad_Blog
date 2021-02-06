@@ -72,7 +72,7 @@ export default {
         this.adminList = adminList
       }
     }
-    
+
   }
 }
 </script>
