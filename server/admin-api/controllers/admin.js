@@ -38,6 +38,12 @@ module.exports = {
 		ctx.body = res(0, '登录成功', { token, admin })
 	},
 
+	// 验证 token 的有效性
+	async auth(ctx, next) {
+		// 验证成功
+		ctx.body = res(0, 'token有效')
+	},
+
 	// 获取管理员列表
 	async adminList(ctx, next) {
 		const adminList = await AdminModel.find()

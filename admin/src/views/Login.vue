@@ -98,7 +98,8 @@ export default {
     top: 17%
     z-index: 99
     transform: translate3d(-50%, 0, 0)
-    width: 318px
+    max-width: 318px
+    width: 80%
     padding: 20px
     padding-bottom: 70px
     border: 1px solid $colorK

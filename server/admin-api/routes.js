@@ -15,6 +15,7 @@ router.post('/upload/:mime/:type?', auth, handle.upload)
 
 // 管理员
 router.post('/login', handle.login)
+router.post('/auth', auth, handle.auth)
 
 router.get('/admin', handle.adminList)
 router.get('/admin/:id', handle.itemAdmin)

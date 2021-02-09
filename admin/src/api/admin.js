@@ -45,5 +45,12 @@ export default {
       url: `/admin/${id}`,
       method: 'get'
     })
+  },
+  // 验证 token 的有效性
+  auth() {
+    return request({
+      url: '/auth',
+      method: 'post'
+    })
   }
 }

@@ -18,7 +18,7 @@
           <i class="el-icon-caret-bottom" />
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item :disabled="true" class="adminname">{{ adminname }}</el-dropdown-item>
+          <el-dropdown-item :disabled="true" class="adminname">{{ adminName }}</el-dropdown-item>
           <el-dropdown-item :divided="true" command="dashboard">首页</el-dropdown-item>
           <el-dropdown-item :divided="true" command="logout">退出</el-dropdown-item>
         </el-dropdown-menu>
@@ -48,7 +48,7 @@ export default {
       return this.$store.state.isCollapse
     },
     // 管理员名字
-    adminname() {
+    adminName() {
       return this.$store.state.adminInfo.username
     }
   },
