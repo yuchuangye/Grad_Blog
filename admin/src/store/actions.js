@@ -9,7 +9,7 @@ export default {
     commit('logout')
     router.push({
       path: '/login',
-      // 将当前路由携带过去，方便登录成功后跳转回去
+      // 将要跳转的路由携带过去，方便登录成功后重定向过去
       query: { redirect: router.currentRoute.fullPath }
     })
   }

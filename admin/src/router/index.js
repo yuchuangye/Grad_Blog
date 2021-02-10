@@ -122,7 +122,7 @@ router.beforeEach(async(to, from, next) => {
               ① 退出登录了或从未登录过, 即token是无效（乱写或过期）的, 验证请求会 响应 401
                 那么需要在 catch() 里面重定向到登录页
                 注意： 虽然 401 会触发 reLogin 的action, 但如何不在catch()里加下面的代码，
-                      使用reLogin里的路由跳转在某些情况会出现无限重定向参数的bug 
+                      使用reLogin里的路由跳转在某些情况会出现无限重定向参数的bug
                 next({
                   path: '/login',
                   query: { redirect: to.fullPath }
@@ -154,7 +154,7 @@ router.beforeEach(async(to, from, next) => {
             store.commit('hasLogin', true)
             next()
           }
-        } catch (err) { 
+        } catch (err) {
           // 接口报 401, 证明token无效（乱写或过期）
           next({
             path: '/login',
@@ -163,7 +163,7 @@ router.beforeEach(async(to, from, next) => {
           })
         }
       } else {
-        // hasLogin 为true, 证明token是有效的
+        // hasLogin 为true, 证明目前处于登录状态
         next()
       }
     }

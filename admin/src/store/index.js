@@ -8,7 +8,7 @@ Vue.use(Vuex)
 const state = {
   isCollapse: false, // 控制侧边栏折叠
   access_token: '', // token
-  hasLogin: false,  // 是否已登录
+  hasLogin: false, // 是否已登录
   adminInfo: { // 管理员信息
     username: 'admin',
     role: 'admin'

@@ -25,7 +25,7 @@ export default {
     .img
       max-width: 100%
   .btn-wrap
-    width: 70%;
+    width: 70%
     text-align: center
     margin: auto
     .btn
