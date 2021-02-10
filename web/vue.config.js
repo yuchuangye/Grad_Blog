@@ -32,18 +32,17 @@ module.exports = {
       .set('components', resolve('./src/components'))
       .set('styles', resolve('./src/styles'))
       .set('utils', resolve('./src/utils'))
-	},
-
+  },
+ 
 	// 全局导入sass, 这样就不用在每个组件中再导入
-	css: {
-    loaderOptions: {
-      sass: {
-        prependData: `
-          @import "@/styles/_variable.scss";
-          @import "@/styles/_mixins.scss";
+	css: {
+    loaderOptions: {
+      sass: {
+        prependData: `
+          @import "@/styles/_variable.scss";
+          @import "@/styles/_mixins.scss";
         `
-      }
-    }
-  }
-	
+      }
+    }
+  }
 }

@@ -10,8 +10,7 @@ export default {
       // service模块用于深层次遍历对象设置值
       state[keyname] = service.extend(true, state[keyname], stateData)
       // 字符串类型的 state数据, 防止其被初始化为 {}
-      if (typeof state[keyname] === 'object' &&
-          str_state.includes(keyname)) {
+      if (typeof state[keyname] === 'object' && str_state.includes(keyname)) {
         state[keyname] = stateData || ''
       }
       storage.setItem(keyname, state[keyname])

@@ -4,7 +4,7 @@ export default {
   // 注册用户
   register({ data }) {
     return request({
-      url: `/register`,
+      url: '/register',
       method: 'post',
       data
     })
@@ -12,7 +12,7 @@ export default {
   // 用户登录
   login({ data }) {
     return request({
-      url: `/login`,
+      url: '/login',
       method: 'post',
       data
     })
@@ -31,6 +31,6 @@ export default {
       url: '/user/password',
       method: 'put',
       data
-    })    
+    })
   }
 }

@@ -73,12 +73,13 @@ export default {
         if (valid) { this.codeShow = true }
       })
     },
+
     // 用户登录
     async login() {
       this.loading = true
       let res
       try {
-        res = await user.login({ data: { ...this.user }})
+        res = await user.login({ data: this.user })
       } catch (err) {
         // 接口报错也要关闭 loading
         this.loading = false
@@ -86,7 +87,7 @@ export default {
       }
       // 登录成功
       if (res.code === 0) {
-        this.$notify({ type: 'success', title: '成功', message: res.msg, duration: 1500 })
+        this.$notify({ type: 'success', title: '成功', message: res.msg })
         // 设置 vuex 和 localstorage 中的数据
         this.$store.commit('login', res.data)
         // 重定向到上一页 或 回到首页
@@ -96,10 +97,12 @@ export default {
       // 无论 code是0|1 都要关闭loading
       this.loading = false
     },
+
     // 第三方登录
     snsLogin() {
-      this.$notify.info({ title: '提示', message: '暂时不支持第三方账号登录~', duration: 1500 })
+      this.$notify.info({ title: '提示', message: '暂时不支持第三方账号登录~' })
     },
+
     // 滑块验证码验证成功
     codeSuccess() {
       this.codeShow = false
@@ -109,7 +112,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import "../../styles/_variable.scss";
 .login {
   height: 100vh;

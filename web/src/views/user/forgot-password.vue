@@ -80,49 +80,45 @@ export default {
         if (valid) { this.vertifyInfo() }
       })
     },
+
     // 提交新密码设置表单
     submitNewPassword() {
       this.$refs['newpassword-form'].validate(valid => {
         if (valid) { this.setNewPassword() }
       })
     },
+
     // 发送请求验证输入的信息
     async vertifyInfo() {
       const { username, security } = this.user
-      const res = await user.resetAuth({ data: { username, security } })
+      const res = await user.resetAuth({ data: { username, security }})
       if (res.code === 0) {
-        this.$notify({
-          type: 'success',
-          title: '成功',
-          message: res.msg,
-          duration: 1500
-        })
-        this.jumpTwo() 
+        this.$notify({ type: 'success', title: '成功', message: res.msg })
+        this.jumpTwo()
       }
     },
+
     // 发送请求设置新密码
     async setNewPassword() {
       const { username, security, newpassword, order_newpassword } = this.user
       // 两次输入的新密码不一致
       if (newpassword !== order_newpassword) {
-        this.$notify.error({
-          title: '错误',
-          message: '两次输入的新密码不一致',
-          duration: 1500
-        })
+        this.$notify.error({ title: '错误', message: '两次输入的新密码不一致' })
         return
       }
-      const res = await user.resetPassword({ data: { username, security, password: newpassword } })
+      const res = await user.resetPassword({ data: { username, security, password: newpassword }})
       if (res.code === 0) {
         // 无论目前登录与否，都退出登录清除用户信息
         this.$store.commit('logout')
-        this.setSuccss() 
+        this.setSuccss()
       }
     },
+
     // 跳转第二步
     jumpTwo() {
       this.active = 2
     },
+
     // 设置成功, 跳转到第三步
     setSuccss() {
       this.active = 3

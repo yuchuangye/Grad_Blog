@@ -1,7 +1,7 @@
 <template>
   <div class="error">
     <div class="container">
-      <div class="image m-auto of-hidden w-80"><img class="block w-100" src="../assets/404_2.gif"></div>
+      <div class="image m-auto of-hidden w-80"><img class="block w-100" src="../assets/404.gif"></div>
       <div class="info m-auto flex fd-col w-80">
         <span class="oops text-main fw-700">OOPS!</span>
         <span class="sorry fw-700">很抱歉，页面它不小心迷路了！</span>
@@ -18,7 +18,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .error {
   .image {
     padding: 4rem 0;

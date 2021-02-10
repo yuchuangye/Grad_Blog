@@ -45,7 +45,7 @@ const routes = [
         path: 'home',
         name: 'home',
         component: () => import('@/views/Home'),
-        meta: { title: '首页', requireAuth: false }
+        meta: { title: '首页' }
       },
       {
         path: 'person-page',

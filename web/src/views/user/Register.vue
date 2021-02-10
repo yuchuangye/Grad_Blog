@@ -56,7 +56,7 @@ export default {
         security: [{ validator: check.checkSecure, trigger: 'blur' }]
       },
       codeShow: false, // 控制滑块验证码显示
-      loading: false // 按钮加载中提示
+      loading: false // 按钮按钮加载中提示
     }
   },
   methods: {
@@ -66,12 +66,13 @@ export default {
         if (valid) { this.codeShow = true }
       })
     },
+
     // 用户注册
     async register() {
       this.loading = true
       let res
       try {
-        res = await user.register({ data: { ...this.user }})
+        res = await user.register({ data: this.user })
       } catch (err) {
         // 接口报错也要关闭 loading
         this.loading = false
@@ -79,13 +80,14 @@ export default {
       }
       // 注册成功
       if (res.code === 0) {
-        this.$notify({ type: 'success', title: '成功', message: res.msg, duration: 1500 })
+        this.$notify({ type: 'success', title: '成功', message: res.msg })
         // 跳转到登录页
         this.$router.push('/login')
       }
       // 无论 code是0|1 都要关闭loading
       this.loading = false
     },
+
     // 滑块验证码验证成功
     codeSuccess() {
       this.codeShow = false
@@ -95,7 +97,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import "../../styles/_variable.scss";
 .register {
   height: 100vh;

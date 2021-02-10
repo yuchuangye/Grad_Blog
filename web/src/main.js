@@ -3,18 +3,18 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
+import ElementUI from 'element-ui'
 
-// 导入Scss样式文件
+// 导入scss样式文件
 import './styles/index.scss'
 // iconfont 使用svg图标需要引入的JS文件
 import './assets/font/iconfont.js'
 
-Vue.config.productionTip = false
-
 // 全局注册 element-ui
 Vue.use(ElementUI)
+
+Vue.config.productionTip = false
 
 new Vue({
   router,
