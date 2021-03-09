@@ -44,7 +44,7 @@
       </div>
       <!-- 左下角图片 -->
       <div class="fixed-image">
-        <img class="w-100 block" src="../../assets/images/findpassword-remove.png">
+        <img class="w-100 block" src="../../assets/images/findpassword.png">
       </div>
     </div>
   </div>

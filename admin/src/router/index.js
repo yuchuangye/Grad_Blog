@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import NProgress from 'nprogress'
-import storage from '@/utils/storage.js'
+import storage from '@/utils/storage'
 import store from '@/store'
-import admin from '@/api/admin.js'
+import admin from '@/api/admin'
 
 Vue.use(VueRouter)
 
@@ -67,30 +67,50 @@ const routes = [
   },
 
   {
-    path: '/admin',
+    path: '/system',
     component: () => import('@/views/Layout'),
-    redirect: '/admin/list',
-    name: 'admin',
+    redirect: '/system/admin-list',
+    name: 'system',
     meta: { title: '系统设置' },
     children: [
       {
-        path: 'list',
+        path: 'admin-list',
         name: 'admin-list',
         component: () => import('@/views/system/admin-list'),
         meta: { title: '管理员列表', requireAuth: true }
       },
       {
-        path: 'add',
+        path: 'admin-add',
         name: 'admin-add',
         component: () => import('@/views/system/admin-edit'),
         meta: { title: '新增管理员', requireAuth: true }
       },
       {
-        path: 'update/:id',
+        path: 'admin-update/:id',
         name: 'admin-update',
         props: true,
         component: () => import('@/views/system/admin-edit'),
         meta: { title: '更新管理员', requireAuth: true }
+      },
+
+      {
+        path: 'ads-list',
+        name: 'ads-list',
+        component: () => import('@/views/system/ads-list'),
+        meta: { title: '广告位列表', requireAuth: true }
+      },
+      {
+        path: 'ads-add',
+        name: 'ads-add',
+        component: () => import('@/views/system/ads-edit'),
+        meta: { title: '新增广告位', requireAuth: true }
+      },
+      {
+        path: 'ads-update/:id',
+        name: 'ads-update',
+        props: true,
+        component: () => import('@/views/system/ads-edit'),
+        meta: { title: '更新广告位', requireAuth: true }
       }
     ]
   }
@@ -109,16 +129,20 @@ router.beforeEach(async(to, from, next) => {
 
   /*
     导航进入一个路由：
-      1、无需登录即可访问的路由（login、register、404...）, next() 放行即可
+      1、无需登录即可访问的路由
+          ① 访问的是 wl 中的路由（一般是 login、register...）
+             1. 已登录（这里是简单判断有无token）, 跳转到首页
+             2. 未登录, next() 放行即可
+          ② 不是 wl 中的路由, 直接 next() 放行即可
       2、需要登录才可以访问的路由
 
-         ① 无 token，携带当前访问路径重定向到登录页，并重置token、adminInfo、hasLogin等必要vuex数据
-                     同时要调用  NProgress.done()
+          ① 无 token
+              携带当前访问路径重定向到登录页，并重置必要vuex和localstorage数据，同时要调用  NProgress.done()
 
-         ② 有 token
+          ② 有 token
             1、hasLogin为true, 代表token是有效的并且已经登录过了, next() 放行即可
 
-            2、hasLogin 为 false
+            2、hasLogin为false
               ① 退出登录了或从未登录过, 即token是无效（乱写或过期）的, 验证请求会 响应 401
                 那么需要在 catch() 里面重定向到登录页
                 注意： 虽然 401 会触发 reLogin 的action, 但如何不在catch()里加下面的代码，
@@ -127,10 +151,10 @@ router.beforeEach(async(to, from, next) => {
                   path: '/login',
                   query: { redirect: to.fullPath }
                 })
-              ② 登录了，但刷新 vuex会把 hasLogin重置为false，所以每次刷新时需要验证一次token的有效性
+              ② 登录了，但刷新 vuex会把 hasLogin重置为false，所以每次刷新时都需要验证token
   */
 
-  // 当前跳转的路由系列中存在需要验证 token的路由
+  // 当前跳转的路由系列中存在需要登录状态的路由
   if (to.matched.some(auth => auth.meta.requireAuth)) {
     const token = storage.getItem('access_token')
     // token不存在
@@ -145,7 +169,7 @@ router.beforeEach(async(to, from, next) => {
       // 这里要关闭 进度条, 否则会有bug
       NProgress.done()
     } else {
-      // token存在, hasLogin为false 时需要发请求验证token有效性
+      // token存在, hasLogin为false 时需要发请求验证token
       if (!store.state.hasLogin) {
         try {
           const res = await admin.auth()
@@ -168,7 +192,19 @@ router.beforeEach(async(to, from, next) => {
       }
     }
   } else {
-    // 不需要验证token, 直接放行
+    const wl = ['login']
+    // 如果访问 wl 中的路由
+    if (wl.includes(to.name)) {
+      const token = storage.getItem('access_token')
+      if (token) {
+        document.title = '首页'
+        // 已登录跳到首页
+        next('/home')
+        NProgress.done()
+      } else {
+        next()
+      }
+    }
     next()
   }
 })

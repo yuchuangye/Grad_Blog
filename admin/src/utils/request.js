@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Vue from 'vue'
 import store from '@/store'
-import storage from '@/utils/storage.js'
+import storage from '@/utils/storage'
 
 // 创建一个axios实例
 const service = axios.create({

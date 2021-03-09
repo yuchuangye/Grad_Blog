@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import admin from '@/api/admin.js'
-import storage from '@/utils/storage.js'
+import admin from '@/api/admin'
+import storage from '@/utils/storage'
 export default {
   name: 'AdminEdit',
   props: {

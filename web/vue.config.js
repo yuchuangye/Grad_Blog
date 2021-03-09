@@ -25,7 +25,7 @@ module.exports = {
       return options
     })
 
-    // 设置别名, set第一个参数：设置的别名，第二个参数：设置的路径
+    // 设置路径别名 set(别名, 对应路径)
     config.resolve.alias
       .set('@', resolve('./src'))
       .set('assets', resolve('./src/assets'))
@@ -34,7 +34,7 @@ module.exports = {
       .set('utils', resolve('./src/utils'))
   },
  
-	// 全局导入sass, 这样就不用在每个组件中再导入
+	// 全局导入sass文件, 这样就不用在每个组件中再导入
 	css: {
     loaderOptions: {
       sass: {

@@ -15,6 +15,8 @@ router.post('/upload/:mime/:type?', auth, handle.upload)
 // 用户
 router.post('/login', handle.login)
 router.post('/register', handle.register)
+router.post('/auth', auth, handle.auth)
+router.get('/user/:id', handle.getUserInfo)
 
 router.post('/user/reset-auth', handle.resetAuth)
 router.put('/user/password', handle.updateUserPassword)

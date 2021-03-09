@@ -6,7 +6,7 @@
         <span class="title">数据列表</span>
       </div>
       <div class="right">
-        <el-button size="small" @click="$router.push('/admin/add')">添加</el-button>
+        <el-button size="small" @click="$router.push('/system/admin-add')">添加</el-button>
       </div>
     </el-card>
 
@@ -17,7 +17,7 @@
       <el-table-column prop="role" label="角色" width="350" />
       <el-table-column label="操作" min-width="150" fixed="right">
         <template slot-scope="scope">
-          <el-button size="mini" @click="$router.push(`/admin/update/${scope.row._id}`)">编辑</el-button>
+          <el-button size="mini" @click="$router.push(`/system/admin-update/${scope.row._id}`)">编辑</el-button>
           <el-button size="mini" type="danger" @click="delAdmin(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import admin from '@/api/admin.js'
+import admin from '@/api/admin'
 export default {
   name: 'AdminList',
   data() {

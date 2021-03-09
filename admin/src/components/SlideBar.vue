@@ -35,8 +35,10 @@
           <i class="el-icon-s-tools" />
           <span slot="title">系统设置</span>
         </template>
-        <el-menu-item index="/admin/add">新增管理员</el-menu-item>
-        <el-menu-item index="/admin/list">管理员列表</el-menu-item>
+        <el-menu-item index="/system/admin-add">新增管理员</el-menu-item>
+        <el-menu-item index="/system/admin-list">管理员列表</el-menu-item>
+        <el-menu-item index="/system/ads-add">新增广告位</el-menu-item>
+        <el-menu-item index="/system/ads-list">广告位列表</el-menu-item>        
       </el-submenu>
 
       <el-menu-item class="github-link">

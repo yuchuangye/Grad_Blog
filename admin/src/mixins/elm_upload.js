@@ -6,13 +6,13 @@ export default {
     uploadUrl() {
       return process.env.VUE_APP_BASE_API + '/upload/images/admin'
     },
-    // 文件上传时的请求头
+    // 文件上传请求头
     uploadHeaders() {
       return { 'Authorization': 'Bearer ' + storage.getItem('access_token') }
     }
   },
   methods: {
-    // 文件上传成功的回调函数
+    // 文件上传成功回调函数
     uploadSuccess(res) {
       this.model.icon = res.data.url
     }

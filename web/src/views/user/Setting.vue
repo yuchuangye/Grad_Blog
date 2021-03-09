@@ -1,10 +1,10 @@
 <template>
-  <div class="person-page">person-page</div>
+  <div class="user-setting">user-setting</div>
 </template>
 
 <script>
 export default {
-  name: 'PersonPage'
+  name: 'UserSetting'
 }
 </script>
 

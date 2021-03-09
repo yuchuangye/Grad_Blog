@@ -44,5 +44,5 @@ app.use(adminRouter.routes())
 app.use(webRouter.allowedMethods())
 app.use(adminRouter.allowedMethods())
 
-const { port } = require('./config.js')
-app.listen(port, () => { console.log(`Run In: http://localhost:${port}`) })
+const { port, domain } = require('./config.js')
+app.listen(port, () => { console.log(`Run In: ${domain}`) })

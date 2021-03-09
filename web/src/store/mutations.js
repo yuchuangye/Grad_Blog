@@ -16,26 +16,35 @@ export default {
       storage.setItem(keyname, state[keyname])
     }
   },
+  // 是否已登录
+  hasLogin(state, hasLogin) {
+    state.hasLogin = hasLogin
+  },
+  // 设置用户信息
+  userInfo(state, userInfo) {
+    const { _id = 'ObjectId', username = '', avatar = '' } = userInfo
+    state.userInfo = { _id, username, avatar }
+    storage.setItem('userInfo', state.userInfo)
+  },
   // 登录成功
   login(state, data) {
-    // 重置vuex用户相关数据
+    // 重置vuex相关数据
+    const { _id, username, avatar } = data.user
     state.access_token = data.token
-    state.userInfo = data.user
+    state.hasLogin = true
+    state.userInfo = { _id, username, avatar }
     storage.setItem('access_token', state.access_token)
     storage.setItem('userInfo', state.userInfo)
   },
   // 退出登录
   logout(state) {
-    // 重置vuex用户数据
+    // 重置vuex相关数据
     state.access_token = ''
+    state.hasLogin = false
     state.userInfo = {
-      _id: 0, // 用户唯一ID
-      username: '', // 用户名
-      avatar: '', // 头像
-      createTime: '', // 注册时间
-      job: '', // 职位
-      company: '', // 公司
-      introduce: '' // 个人简介
+      _id: 'ObjectId',
+      username: '',
+      avatar: ''
     }
     storage.setItem('access_token', state.access_token)
     storage.setItem('userInfo', state.userInfo)

@@ -9,7 +9,7 @@ import { mapMutations } from 'vuex'
 export default {
   name: 'APP',
   created() {
-    // 首次加载或刷新时初始化 vuex 中的数据
+    // 初始化vuex中的数据, 保持vuex和localstorage数据一致
     this.initState()
   },
   methods: {

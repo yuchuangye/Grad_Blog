@@ -36,8 +36,8 @@
 
 <script>
 import Vcode from 'vue-puzzle-vcode'
-import check from '@/utils/check.js'
-import user from '@/api/user.js'
+import check from '@/utils/check'
+import user from '@/api/user'
 export default {
   name: 'Register',
   components: {

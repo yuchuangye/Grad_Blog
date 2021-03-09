@@ -64,6 +64,30 @@ module.exports = {
 
 	},
 
+	// 验证 token 的有效性
+	async auth(ctx, next) {
+		// 验证成功
+		ctx.body = res(0, 'token有效')
+	},	
+	
+	// 获取用户信息
+	async getUserInfo(ctx, next) {
+		const { id } = ctx.request.params
+		let user
+		try {
+			// id符合 mongoose 规范
+			user = await UserModel.findById(id)
+			if (user) {
+				ctx.body = res(0, '获取用户信息成功', { user })
+			} else {
+				ctx.body = res(2, '用户不存在')
+			}
+		} catch (err) {
+			// id不符合 mongoose 规范
+			ctx.body = res(2, '参数不正确')
+		}
+	},
+
 	// 更新用户基础信息
 	async updateUserInfo(ctx, next) {
 		// 参数校验

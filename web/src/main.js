@@ -8,8 +8,8 @@ import ElementUI from 'element-ui'
 
 // 导入scss样式文件
 import './styles/index.scss'
-// iconfont 使用svg图标需要引入的JS文件
-import './assets/font/iconfont.js'
+// iconfont使用svg图标时需要引入的JS文件
+import './assets/font/iconfont'
 
 // 全局注册 element-ui
 Vue.use(ElementUI)

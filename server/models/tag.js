@@ -5,7 +5,7 @@ const { d_tag } = require('../config.js')
 const TagSchema = mongoose.Schema({
   // 标签名字
   name: { type: String, trim: true },
-  // 默认t图标
+  // 默认图标
   icon: { type: String, default: d_tag },
   // 一级标签
   parent: { type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }

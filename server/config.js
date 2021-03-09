@@ -4,16 +4,16 @@
 
 module.exports = {
 	// token密钥
-	webSecret: 'grad-blog-20210917-api',
+	webSecret: 'grad-blog-web-20210917-api',
 	adminSecret: 'grad-blog-admin-20210630-api',
 	// 数据库信息
 	dbInfo: {
 		name: 'grad_blog',
 		username: 'yuchaungye',
-		passwrod: 'gradblog2019',
+		passwrod: 'gradblog2021',
 		get connectStr() { return `mongodb://localhost:27017/${this.name}` }
 	},
-	// ip地址
+	// 域名
 	ip:　'localhost',
 	// 项目运行端口号
 	port: 3009,

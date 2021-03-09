@@ -7,14 +7,11 @@ Vue.use(Vuex)
 
 const state = {
   access_token: '', // token
+  hasLogin: false, // 是否已登录
   userInfo: {
-    _id: 0, // 用户唯一ID
+    _id: 'ObjectId', // 用户唯一ID
     username: '', // 用户名
-    avatar: '', // 头像
-    createTime: '', // 注册时间
-    job: '', // 职位
-    company: '', // 公司
-    introduce: '' // 个人简介
+    avatar: '' // 头像
   }
 }
 

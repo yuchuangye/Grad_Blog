@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import tag from '@/api/tag.js'
-import elm_upload from '@/mixins/elm_upload.js'
+import tag from '@/api/tag'
+import elm_upload from '@/mixins/elm_upload'
 export default {
   name: 'TagEdit',
   mixins: [elm_upload],
@@ -88,13 +88,13 @@ export default {
         if (icon === initIcon) {
           this.editTag()
         } else {
-          // 根据当前显示的图标是否已经上传过服务期执行不同操作
+          // 根据当前显示的图标是否已经上传过服务器执行不同操作
           this.isUpload ? this.editTag() : this.$refs.upload.submit()
         }
       } else {
         // 新增时上传了图标
         if (icon) {
-          // 根据当前显示的图标是否已经上传过服务期执行不同操作
+          // 根据当前显示的图标是否已经上传过服务器执行不同操作
           this.isUpload ? this.editTag() : this.$refs.upload.submit()
         } else {
           this.editTag()
@@ -146,7 +146,7 @@ export default {
       }
     },
 
-    // 处理请求参数和发送请求
+    // 处理请求参数以及发送请求
     async editTag() {
       const { name } = this.model
       const { id, initName } = this

@@ -36,7 +36,7 @@ module.exports = {
 		/* 
 			查询存在 parent 字段并且其值等于 id 的数据, 即是对应二级标签数据 
 			注意：因为 parent 字段是 ObjectId类型, 如果你传过来的 id 不符合
-					 ObejctId 的规范, 操作数据库的时候 mongoose会抛出一个500错误, 如何符合则会自动将其
+					 ObejctId 的规范, 操作数据库的时候 mongoose会抛出一个500错误, 如果符合则会自动将其
 					 转换为 ObjectId类型
 
 			可以不用判断 一级标签是否存在，不存在查询出来 tagList = []
