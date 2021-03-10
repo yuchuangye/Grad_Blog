@@ -24,8 +24,8 @@
                 <img
                   v-if="item.image && isImage"
                   :src="item.image"
-                  @error="imgLoadError"
                   class="banner"
+                  @error="imgLoadError"
                   @click="uploadImageIndex=index"
                 >
                 <i v-else class="el-icon-plus banner-uploader-icon" @click="uploadImageIndex=index" />

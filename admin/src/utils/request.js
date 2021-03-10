@@ -38,6 +38,14 @@ service.interceptors.response.use(
 
   error => {
     // 对响应错误做些什么
+    const { code, message } = error
+    // 请求超时处理
+    if (code === 'ECONNABORTED' || message === 'Network Error' || message.includes('timeout')) {
+      Vue.prototype.$message({ type: 'error', message: '网络错误' })
+      return Promise.reject(message)
+    }
+
+    // Http错误处理
     const { status, data } = error.response
     switch (status) {
       // 401 未登录(无token/token无效/过期) -跳转登录页面，并携带当前页面的路径
