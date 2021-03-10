@@ -28,6 +28,8 @@
     </el-container>
 
     <div v-if="isOpen" class="menu-bg" @click="isOpen=false" />
+    <!-- 返回顶部按钮 -->
+    <el-backtop target=".el-main" :visibility-height="400" />
 
   </div>
 </template>
@@ -44,7 +46,7 @@ export default {
   data() {
     return {
       isFold: false, // 屏幕是否 < 768
-      isOpen: false, // 控制屏幕 < 768试的菜单展开
+      isOpen: false, // 控制屏幕 < 768时的菜单展开
       isTransition: 0 // 侧边菜单是否添加过渡动画, 大于0时添加
     }
   },
