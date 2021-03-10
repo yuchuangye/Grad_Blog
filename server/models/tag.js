@@ -1,5 +1,5 @@
-const mongoose = require('./db.js')
-const { d_tag } = require('../config.js')
+const mongoose = require('./db')
+const { d_tag } = require('../config')
 
 // 标签Schema模型定义
 const TagSchema = mongoose.Schema({

@@ -109,7 +109,7 @@ export default {
           // 根据一级标签 id 有无判断是获取一级还是二级标签列表
           this.tagOneId ? this.getTagTwoList(this.tagOneId) : this.getTagOneList()
         }
-      })
+      }).catch(() => {})
     },
 
     // 对返回的标签数据进行处理

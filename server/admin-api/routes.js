@@ -1,8 +1,8 @@
 const Router = require('@koa/router')
 const koaJwt = require('koa-jwt')
-const handle = require('./controllers/index.js')
-const { adminSecret } = require('../config.js')
-const judge = require('../middlewares/judge.js')
+const handle = require('./controllers/index')
+const { adminSecret } = require('../config')
+const judge = require('../middlewares/judge')
 
 // 实例化路由对象，并设置路由前缀
 const router = new Router({ prefix: '/api/admin' })
@@ -32,5 +32,13 @@ router.get('/tag/:id', handle.itemTag)
 router.put('/tag/:id', auth, judge, handle.updateTag)
 router.delete('/tag/:id', auth, judge, handle.delTag)
 router.post('/tag', auth, judge, handle.addTag)
+
+// 广告位
+router.get('/ad', handle.adList)
+router.get('/ad/:id', handle.itemAd)
+
+router.put('/ad/:id', auth, judge, handle.updateAd)
+router.delete('/ad/:id', auth, judge, handle.delAd)
+router.post('/ad', auth, judge, handle.addAd)
 
 module.exports = router

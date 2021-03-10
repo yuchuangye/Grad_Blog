@@ -1,8 +1,8 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { adminSecret } = require('../../config.js')
-const res = require('../../utils/response.js')
-const AdminModel = require('../../models/admin.js')
+const { adminSecret } = require('../../config')
+const res = require('../../utils/response')
+const AdminModel = require('../../models/admin')
 
 // 路由处理函数
 module.exports = {

@@ -1,5 +1,5 @@
-const mongoose = require('./db.js')
-const { d_avatar } = require('../config.js')
+const mongoose = require('./db')
+const { d_avatar } = require('../config')
 
 // 用户Schema模型定义
 const UserSchema = mongoose.Schema({

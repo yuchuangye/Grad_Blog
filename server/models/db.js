@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 等内部会使用findAndModify驱动，驱动即将被废弃，所以弹出警告！*/
 mongoose.set('useFindAndModify', false)
 
-const { dbInfo } = require('../config.js')
+const { dbInfo } = require('../config')
 
 // 2.连接数据库
 mongoose.connect(dbInfo.connectStr, {

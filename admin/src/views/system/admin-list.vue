@@ -56,7 +56,7 @@ export default {
           this.$message({ type: 'success', message: res.msg })
           this.getAdminList()
         }
-      })
+      }).catch(() => {})
     },
 
     // 获取管理员列表

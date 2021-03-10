@@ -1,4 +1,4 @@
-const mongoose = require('./db.js')
+const mongoose = require('./db')
 
 // 后台管理系统 用户模型
 const AdminSchema = mongoose.Schema({
