@@ -32,6 +32,14 @@
 
       <el-submenu index="3">
         <template slot="title">
+          <i class="el-icon-s-custom" />
+          <span slot="title">用户管理</span>
+        </template>
+        <el-menu-item index="/user/secure">密保设置</el-menu-item>
+      </el-submenu>
+
+      <el-submenu index="4">
+        <template slot="title">
           <i class="el-icon-s-tools" />
           <span slot="title">系统设置</span>
         </template>

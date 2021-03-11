@@ -41,4 +41,12 @@ router.put('/ad/:id', auth, judge, handle.updateAd)
 router.delete('/ad/:id', auth, judge, handle.delAd)
 router.post('/ad', auth, judge, handle.addAd)
 
+// 密保问题
+router.get('/secure', handle.secureList)
+router.get('/secure/:id', handle.itemSecure)
+
+router.put('/secure/:id', auth, judge, handle.updateSecure)
+router.delete('/secure/:id', auth, judge, handle.delSecure)
+router.post('/secure', auth, judge, handle.addSecure)
+
 module.exports = router

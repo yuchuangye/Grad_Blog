@@ -67,6 +67,22 @@ const routes = [
   },
 
   {
+    path: '/user',
+    component: () => import('@/views/Layout'),
+    redirect: '/user/list',
+    name: 'user',
+    meta: { title: '用户管理' },
+    children: [
+      {
+        path: 'secure',
+        name: 'secure',
+        component: () => import('@/views/user/user-secure'),
+        meta: { title: '密保设置', requireAuth: true }
+      }
+    ]
+  },
+
+  {
     path: '/system',
     component: () => import('@/views/Layout'),
     redirect: '/system/admin-list',
