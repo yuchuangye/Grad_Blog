@@ -20,7 +20,7 @@
           <el-button size="mini" type="danger" @click="delSecure(scope.row)">删除</el-button>
         </template>
       </el-table-column>
-    </el-table>    
+    </el-table>
   </div>
 </template>
 
@@ -57,7 +57,7 @@ export default {
 
     // 添加密保问题
     async addSecure(name) {
-      const res = await user.addSecure({ data: { name } })
+      const res = await user.addSecure({ data: { name }})
       if (res.code === 0) {
         this.$message({ type: 'success', message: res.msg })
         this.getSecureList()
@@ -66,14 +66,14 @@ export default {
 
     // 更新密保问题
     async updateSecure(id, name) {
-      const res = await user.updateSecure({ id, data: { name } })
+      const res = await user.updateSecure({ id, data: { name }})
       if (res.code === 0) {
-        this.$message({ type: 'success', message: res.msg })  
+        this.$message({ type: 'success', message: res.msg })
         this.getSecureList()
       }
     },
 
-    // 删除密保问题 
+    // 删除密保问题
     delSecure(row) {
       this.$confirm(`确认要删除密保问题"${row.name}"?`, '提示', {
         confirmButtonText: '确定',
@@ -91,7 +91,7 @@ export default {
 
     // 编辑弹出框
     async openPrompt(type, id) {
-      let promptObj = {
+      const promptObj = {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         inputPattern: /^.{6,12}$/,

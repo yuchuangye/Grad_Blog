@@ -1,8 +1,9 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { webSecret } = require('../../config.js')
-const res = require('../../utils/response.js')
-const UserModel = require('../../models/user.js')
+const { webSecret } = require('../../config')
+const res = require('../../utils/response')
+const UserModel = require('../../models/user')
+const SecureModel = require('../../models/secure')
 
 // 路由处理中间件
 module.exports = {
@@ -26,11 +27,11 @@ module.exports = {
 		// 密码错误
 		if (!isPassword) { return ctx.body = res(1, '密码错误') }
 
-		// 验证成功, 生成token, 有效期为100分钟, 数值被解析成秒计算
+		// 验证成功, 生成token, 有效期为180分钟, 数值被解析成秒计算
 		const token = jwt.sign(
 			{ _id: String(user._id), username: user.username }, 
 			 webSecret, 
-			{ expiresIn: 60*100 }
+			{ expiresIn: 60*180 }
 		)
 
 		user = await UserModel.findOne({ username })
@@ -45,13 +46,18 @@ module.exports = {
 		ctx.verifyParams({
 			username: { type: 'string', require: true },
 			password: { type: 'string', require: true },
-			security: { type: 'string', require: true }
+			security: { type: 'object', require: true }
 		})
 
 		let { username } = ctx.request.body
+		const { question, answer } = ctx.request.body.security
 		// 去除左右两端空格
 		username = username.trim()
-		if (!username) { ctx.throw(422, '参数不合法') }
+		if (!username || !question || !answer) { ctx.throw(422, '参数不合法') }
+
+		// 查找对应ID问题
+		const secure = await SecureModel.findById(question)
+		if (!secure) { ctx.throw(422, '参数不合法') }
 
 		// 判断用户是否已存在
 		const hasUser = await UserModel.findOne({ username })
@@ -88,6 +94,12 @@ module.exports = {
 		}
 	},
 
+  // 获取密保问题列表
+  async secureList(ctx, next) {
+    const secureList = await SecureModel.find()
+    ctx.body = res(0, '获取密保问题列表成功', { secureList })
+  },
+
 	// 更新用户基础信息
 	async updateUserInfo(ctx, next) {
 		// 参数校验
@@ -109,26 +121,47 @@ module.exports = {
 		// 参数校验
 		ctx.verifyParams({
 			username: { type: 'string', require: true },
-			security: { type: 'string', require: true }
+			security: { type: 'object', require: true }
 		})
-		// 根据用户名和密保查找用户
-		const user = await UserModel.findOne(ctx.request.body)
-		if (!user) { return ctx.body = res(1, '用户名或密保不正确') }
+
+		const { username } = ctx.request.body
+		const { question, answer } = ctx.request.body.security
+		if (!question || !answer) { ctx.throw(422, '参数不合法') }
+
+		// 根据用户名查找用户
+		const user = await UserModel.findOne({ username }).select('+security')
+		if (!user) { return ctx.body = res(1, '用户名不存在') }
+
+		// 验证密保信息
+		if (user.security.question !== question || user.security.answer !== answer) {
+			return ctx.body = res(1, '密保信息错误')
+		} 
+
 		ctx.body = res(0, '身份验证成功')		
 	},
 
 	// 重置密码
-	async updateUserPassword(ctx, next) {
+	async resetPassword(ctx, next) {
 		// 参数校验
 		ctx.verifyParams({
 			username: { type: 'string', require: true },
 			password: { type: 'string', require: true },
-			security: { type: 'string', require: true }
+			security: { type: 'object', require: true }
 		})
-		const { username, security, password } = ctx.request.body
-		// 根据用户名和密保查找用户并更新密码
-		const user = await UserModel.findOneAndUpdate({ username, security }, { password })
-		if (!user) { return ctx.body = res(1, '用户名或密保不正确') }
+		const { username, password } = ctx.request.body
+		const { question, answer } = ctx.request.body.security
+		
+		if (!question || !answer) { ctx.throw(422, '参数不合法') }
+		// 根据用户名查找用户
+		const user = await UserModel.findOne({ username }).select('+security')
+		if (!user) { return ctx.body = res(1, '用户名不存在') }
+
+		// 验证密保信息
+		if (user.security.question !== question || user.security.answer !== answer) {
+			return ctx.body = res(1, '密保信息错误')
+		} 		
+		// 更新密码
+		await UserModel.findOneAndUpdate({ username }, { password })
 		ctx.body = res(0, '修改密码成功')
 	},
 

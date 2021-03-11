@@ -19,12 +19,15 @@ router.post('/auth', auth, handle.auth)
 router.get('/user/:id', handle.getUserInfo)
 
 router.post('/user/reset-auth', handle.resetAuth)
-router.put('/user/password', handle.updateUserPassword)
+router.put('/user/reset-password', handle.resetPassword)
 router.put('/user/baseinfo', auth, handle.updateUserInfo)
 
 router.get('/:id/user/following', handle.followingList)
 router.get('/:id/user/followers', handle.followersList)
 router.put('/user/following/:id', auth, handle.followUser)
 router.delete('/user/following/:id', auth, handle.unfollowUser)
+
+// 密保
+router.get('/secure', handle.secureList)
 
 module.exports = router

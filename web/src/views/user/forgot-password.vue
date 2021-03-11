@@ -15,8 +15,18 @@
           <el-form-item class="w-80 m-lr-auto" prop="username">
             <el-input v-model="user.username" placeholder="你的名字" />
           </el-form-item>
+          <el-form-item class="w-80 m-lr-auto">
+            <el-select v-model="user.security.question" placeholder="请选择密保问题">
+              <el-option
+                v-for="item in secureList"
+                :key="item._id"
+                :label="item.name"
+                :value="item._id"
+              />
+            </el-select>
+          </el-form-item>
           <el-form-item class="w-80 m-lr-auto" prop="security">
-            <el-input v-model="user.security" placeholder="你的密保" />
+            <el-input v-model="user.security.answer" placeholder="密保问题答案" />
           </el-form-item>
           <el-form-item class="w-80 m-lr-auto">
             <el-button type="primary w-100" @click="submitVertifyInfo">填写完成，下一步</el-button>
@@ -59,9 +69,13 @@ export default {
     return {
       active: 1, // 控制步骤条
       time: 3, // 3s倒计时跳转登录页
+      secureList: [], // 密保问题列表
       user: { // 用户信息
         username: '',
-        security: '',
+        security: {
+          question: '',
+          answer: ''
+        },
         newpassword: '',
         order_newpassword: ''
       },
@@ -73,7 +87,19 @@ export default {
       }
     }
   },
+  mounted() {
+    this.getSecureList()
+  },
   methods: {
+
+    // 获取密保问题列表
+    async getSecureList() {
+      const res = await user.getSecureList()
+      if (res.code === 0) {
+        this.secureList = res.data.secureList
+      }
+    },
+
     // 提交验证信息表单
     submitVertifyInfo() {
       this.$refs['vertify-form'].validate(valid => {
@@ -103,7 +129,7 @@ export default {
       const { username, security, newpassword, order_newpassword } = this.user
       // 两次输入的新密码不一致
       if (newpassword !== order_newpassword) {
-        this.$notify.error({ title: '错误', message: '两次输入的新密码不一致' })
+        this.$notify({ type:'error', title: '错误', message: '两次输入的新密码不一致' })
         return
       }
       const res = await user.resetPassword({ data: { username, security, password: newpassword }})

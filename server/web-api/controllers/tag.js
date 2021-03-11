@@ -1,5 +1,5 @@
-const res = require('../../utils/response.js')
-const TagModel = require('../../models/tag.js')
+const res = require('../../utils/response')
+const TagModel = require('../../models/tag')
 
 // 路由处理中间件
 module.exports = {

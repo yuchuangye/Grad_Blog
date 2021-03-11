@@ -46,5 +46,12 @@ export default {
       url: `/user/${id}`,
       method: 'get'
     })
-  }
+  },
+  // 获取密保问题列表
+  getSecureList() {
+    return request({
+      url: '/secure',
+      method: 'get'
+    })
+  }  
 }

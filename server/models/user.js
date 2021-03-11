@@ -12,7 +12,13 @@ const UserSchema = mongoose.Schema({
     set (val) { return require('bcryptjs').hashSync(val, 10) }
   },
   // 密保
-  security: { type: String, select: false },
+  security: { 
+    type: { 
+      question: { type: String }, // 问题Id, 这里没设置关联
+      answer: { type: String } // 答案
+    },
+    select: false
+  },
   // 头像
   avatar: { type: String, default: d_avatar },
   // 注册时间

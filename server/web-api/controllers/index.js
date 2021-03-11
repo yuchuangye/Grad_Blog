@@ -1,6 +1,6 @@
-const user = require('./user.js')
-const tag = require('./tag.js')
-const upload = require('../../middlewares/upload.js')
+const user = require('./user')
+const tag = require('./tag')
+const upload = require('../../middlewares/upload')
 
 module.exports =  {
 	...user,

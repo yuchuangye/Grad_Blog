@@ -27,10 +27,12 @@ export default {
   },
   // 密保验证规则
   checkSecure(rule, value, callback) {
-    if (!value) {
-      return callback('必须提供密保')
-    } else if (new RegExp('[^a-zA-Z0-9\u4e00-\u9fa5]', 'g').test(value)) {
-      return callback('密保只能是数字、字母和中文的组合')
+    if (!value.question) {
+      return callback('请选择密保问题')
+    } else if (!value.answer) {
+      return callback('必须填写密保答案')
+    } else if (new RegExp('[^a-zA-Z0-9\u4e00-\u9fa5]', 'g').test(value.answer)) {
+      return callback('密保答案只能是数字、字母和中文的组合')
     } else {
       return callback()
     }

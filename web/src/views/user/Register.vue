@@ -13,8 +13,18 @@
               <el-form-item class="w-80 m-lr-auto" prop="password">
                 <el-input v-model="user.password" placeholder="你的密码" show-password />
               </el-form-item>
+              <el-form-item class="w-80 m-lr-auto">
+                <el-select v-model="user.security.question" placeholder="请选择密保问题">
+                  <el-option
+                    v-for="item in secureList"
+                    :key="item._id"
+                    :label="item.name"
+                    :value="item._id"
+                  />
+                </el-select>
+              </el-form-item>
               <el-form-item class="w-80 m-lr-auto" prop="security">
-                <el-input v-model="user.security" placeholder="你的密保问题" @keyup.native.enter="submit" />
+                <el-input v-model="user.security.answer" placeholder="密保问题答案" @keyup.native.enter="submit" />
               </el-form-item>
               <el-form-item class="w-80 m-lr-auto">
                 <el-button type="primary w-100" :loading="loading" @click="submit">注册</el-button>
@@ -48,18 +58,34 @@ export default {
       user: { // 用户注册信息
         username: '',
         password: '',
-        security: ''
+        security: {
+          question: '',
+          answer: ''
+        }
       },
       rules: { // 表单验证规则
         username: [{ validator: check.checkUserName, trigger: 'blur' }],
         password: [{ validator: check.checkPassword, trigger: 'blur' }],
         security: [{ validator: check.checkSecure, trigger: 'blur' }]
       },
+      secureList: [],
       codeShow: false, // 控制滑块验证码显示
       loading: false // 按钮按钮加载中提示
     }
   },
+  mounted() {
+    this.getSecureList()
+  },
   methods: {
+
+    // 获取密保问题列表
+    async getSecureList() {
+      const res = await user.getSecureList()
+      if (res.code === 0) {
+        this.secureList = res.data.secureList
+      }
+    },
+
     // 提交表单
     submit() {
       this.$refs['user-form'].validate(valid => {
