@@ -17,14 +17,14 @@ export default {
   },
   // 获取用户信息
   getUserInfo({ commit }) {
-    const userInfo = storage.getItem('userInfo')
+    const userInfo = storage.getItem('userInfo') || {}
     return new Promise((resolve, reject) => {
-      user.getUserInfo({ id: userInfo._id || 0 }).then(res => {
+      user.getUserInfo({ id: userInfo._id || 'ObejctId' }).then(res => {
         const user = res.data.user
         // 修改 vuex 中的用户信息
         commit('userInfo', user || {})
         resolve()
-      }).catch(err => reject() )            
+      }).catch(err => { reject(err) })
     })
   }
 }

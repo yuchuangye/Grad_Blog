@@ -126,15 +126,15 @@ router.beforeEach(async(to, from, next) => {
       } else {
         // hasLogin 为true, 证明目前处于登录状态
         next()
-      }      
+      }
     }
   } else {
     const wl = ['login', 'register', 'forgot']
     // 如果访问 wl 中的路由
     if (wl.includes(to.name)) {
       const token = storage.getItem('access_token')
-      /* 
-        如果处于首页再跳 wl 中的路由, 只会触发一次导航守卫, 
+      /*
+        如果处于首页再跳 wl 中的路由, 只会触发一次导航守卫,
         此时 需要手动再设置一次 document.title = 'GRADBLOG'
       */
       if (token) {

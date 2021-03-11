@@ -5,7 +5,9 @@ export default {
   // 初始化 state 中的数据
   initState(state) {
     const str_state = ['access_token']
+    const no_init = ['hasLogin'] // 不需要初始化的数据
     for (const keyname in state) {
+      if (no_init.includes(keyname)) continue
       const stateData = storage.getItem(keyname)
       // service模块用于深层次遍历对象设置值
       state[keyname] = service.extend(true, state[keyname], stateData)

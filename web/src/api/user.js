@@ -28,7 +28,7 @@ export default {
   // 重置密码
   resetPassword({ data }) {
     return request({
-      url: '/user/password',
+      url: '/user/reset-password',
       method: 'put',
       data
     })
