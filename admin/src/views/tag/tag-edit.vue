@@ -1,7 +1,7 @@
 <template>
   <div class="tag-edit">
     <el-card class="box-form-card">
-      <h1 class="title">{{ id ? '更新' : '新建' }}标签</h1>
+      <h1 class="title">{{ id ? '更新' : '新增' }}标签</h1>
       <el-select v-model="model.parent" placeholder="请选择">
         <el-option label="无上级标签" value="" :disabled="!!(id && !editFlag)" />
         <el-option
