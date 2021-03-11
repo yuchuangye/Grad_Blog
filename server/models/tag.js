@@ -11,5 +11,4 @@ const TagSchema = mongoose.Schema({
   parent: { type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }
 })
 
-
 module.exports = mongoose.model('Tag', TagSchema)

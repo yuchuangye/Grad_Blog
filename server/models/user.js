@@ -3,7 +3,9 @@ const { d_avatar } = require('../config')
 
 // 用户Schema模型定义
 const UserSchema = mongoose.Schema({
+  // 用户名
   username: { type: String, trim: true },
+  // 密码
   password: { 
     type: String,
     // 查询数据时默认不把password字段带出来
@@ -36,6 +38,5 @@ const UserSchema = mongoose.Schema({
   }
 
 })
-
 
 module.exports = mongoose.model('User', UserSchema)

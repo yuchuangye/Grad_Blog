@@ -1,6 +1,6 @@
 const mongoose = require('./db')
 
-// 后台管理系统 用户模型
+// 后台管理系统 用户模型定义
 const AdminSchema = mongoose.Schema({
   username: { type: String, trim: true },
   password: { 
@@ -13,6 +13,5 @@ const AdminSchema = mongoose.Schema({
   // 角色，有 管理员和访客两种
   role: { type: String, enum: ['admin', 'visitor'], default: 'visitor' }
 })
-
 
 module.exports = mongoose.model('Admin', AdminSchema)

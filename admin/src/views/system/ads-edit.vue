@@ -160,8 +160,8 @@ export default {
       .el-input
         width: 100%
     @media screen and (max-width: 365px)
-      .banner-uploader-icon
-        width: 155px
+      .el-upload, .banner
+        width: 100%
   .save
     max-width: 800px
     margin: 50px auto
